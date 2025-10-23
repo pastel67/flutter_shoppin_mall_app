@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoppin_mall_app/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       // ),
-//      home: const MyHomePage(title: '쇼핑몰(가제)'),
+      home: const ShoppingHomePage(title: '쇼핑몰 앱(가제)'),
     );
   }
 }
