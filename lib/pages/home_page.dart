@@ -7,9 +7,9 @@ class ShoppingHomePage extends StatelessWidget {
   final String title = '쇼핑몰 앱(가제)';
 
   final List<ProductEntity> productList = [
-    ProductEntity(image: '%%', name: '포크', price: 15000),
+    ProductEntity(image: '%%', name: '포크',descriptiuon: '뾰족합니다.', price: 15000, favorite: true),
   ];
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
