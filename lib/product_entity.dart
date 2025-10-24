@@ -3,5 +3,4 @@ class ProductEntity {
   final String name;
   final int price;
 
-  ProductEntity({required this.image, required this.name, required this.price});
-}
+  ProductEntity({required this.image, required this.name, required this.price});}

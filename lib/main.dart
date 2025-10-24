@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       // ),
-      home: const ShoppingHomePage(title: '쇼핑몰 앱(가제)'),
+      home: ShoppingHomePage(),
     );
   }
 }
