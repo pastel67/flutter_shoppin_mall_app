@@ -14,7 +14,7 @@ class ShoppingHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title, style: TextStyle())),
-      body: Center(child: Text("등록된 상품이 없습니다.", style: TextStyle())),
+      body: Container(child: Center(child: Text("등록된 상품이 없습니다.", style: TextStyle()))),
     );
   }
 }
