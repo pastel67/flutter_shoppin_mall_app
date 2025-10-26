@@ -46,6 +46,46 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         favorite: false,
       ),
     );
+    productList.add(
+      ProductEntity(
+        image: 'assets/단청키보드.webp',
+        name: '단청 키보드',
+        price: 160000,
+        favorite: true,
+      ),
+    );
+    productList.add(
+      ProductEntity(
+        image: 'assets/단청키보드.webp',
+        name: '단청 키보드',
+        price: 160000,
+        favorite: true,
+      ),
+    );
+    productList.add(
+      ProductEntity(
+        image: 'assets/단청키보드.webp',
+        name: '단청 키보드',
+        price: 160000,
+        favorite: true,
+      ),
+    );
+    productList.add(
+      ProductEntity(
+        image: 'assets/단청키보드.webp',
+        name: '단청 키보드',
+        price: 160000,
+        favorite: true,
+      ),
+    );
+    productList.add(
+      ProductEntity(
+        image: 'assets/단청키보드.webp',
+        name: '단청 키보드',
+        price: 160000,
+        favorite: true,
+      ),
+    );
     super.initState();
   }
 
@@ -57,10 +97,65 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       body: productList.isEmpty
           ? Center(child: Text("등록된 상품이 없습니다.", style: TextStyle()))
           : productListView(),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Stack(
+          children: [
+            FloatingActionButton(
+              elevation: 5,
+              onPressed: () {},
+              child: Icon(Icons.add, size: 35),
+            ),
+          ],
+        ),
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      bottomNavigationBar: bottomMenu(context),
     );
   }
 
-  // 리스트 뷰 위젯
+  // 하단 메뉴 모음
+  SafeArea bottomMenu(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 40)),
+            Spacer(),
+            IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 40)),
+            Spacer(flex: 5),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.shopping_cart, size: 40),
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Center(
+                        child: Text("로그인 해주세요", style: TextStyle(fontSize: 20)),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.person, size: 40),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 상품 리스트
   Widget productListView() {
     return ListView.builder(
       itemBuilder: (context, index) {
