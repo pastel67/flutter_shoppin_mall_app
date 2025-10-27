@@ -51,7 +51,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         price: 80000,
         favorite: false,
         descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
     productList.add(
@@ -238,7 +238,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                         },
                         icon: productList[index].favorite
                             ? Icon(Icons.favorite)
-                            : Icon(Icons.favorite_border),
+                            : Icon(
+                                Icons.favorite_border,
+                                color: Colors.red,
+                                size: 20,
+                              ),
                       ),
                       SizedBox(height: 40),
                       Padding(

@@ -11,8 +11,15 @@ class AddProductPage extends StatefulWidget {
 
 class _AddProductPageState extends State<AddProductPage> {
   TextEditingController prodcutNameController = TextEditingController();
-
   int productPrice = 0;
+
+  bool isIncluded() {
+    if (prodcutNameController.text.isEmpty && productPrice == 0) {
+      return false;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class _AddProductPageState extends State<AddProductPage> {
             SizedBox(height: 5),
             inputField(title: "상품 이름"),
             SizedBox(height: 5),
-            inputField(title: "상품 가격", isController: false, isFinction: true),
+            // inputField(title: "상품 가격", isController: false, isFinction: true),
             SizedBox(height: 5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +66,10 @@ class _AddProductPageState extends State<AddProductPage> {
               width: double.maxFinite,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 24.0),
-                child: Center(child: Text("등록 하기")),
+                child: ElevatedButton(
+                  onPressed: isIncluded() ? null : () {} ,
+                  child: Text("등록 하기"),
+                ),
               ),
             ),
           ),
