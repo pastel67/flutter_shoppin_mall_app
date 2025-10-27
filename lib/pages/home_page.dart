@@ -118,7 +118,15 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
       body: productList.isEmpty
           ? Center(child: Text("등록된 상품이 없습니다.", style: TextStyle()))
-          : productListView(),
+          : GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DescriptionPage()),
+                );
+              },
+              child: productListView(),
+            ),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -132,7 +140,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddProductPage()),
+                  MaterialPageRoute(
+                    builder: (context) => AddProductPage(title),
+                  ),
                 );
               },
               child: Icon(Icons.add, size: 35),
@@ -155,15 +165,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DescriptionPage()),
-                );
-              },
-              icon: Icon(Icons.home, size: 40),
-            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 40)),
             Spacer(),
             IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 40)),
             Spacer(flex: 5),
