@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoppin_mall_app/product_entity.dart';
 import 'home_page.dart';
 
 class DescriptionPage extends StatelessWidget {
+  final String title;
+  final ProductEntity productData;
+
+  DescriptionPage({required this.title, required this.productData});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('타닥', style: TextStyle())),
+      appBar: AppBar(title: Text(title, style: TextStyle())),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -17,7 +23,7 @@ class DescriptionPage extends StatelessWidget {
                     width: 150,
                     height: 200,
                     decoration: BoxDecoration(color: Colors.amber),
-                    child: Center(child: Text("이미지")),
+                    child: Image.asset(productData.image),
                   ),
                   //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
                   Padding(
@@ -45,8 +51,8 @@ class DescriptionPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Text("상품명"),
-                          Text("가격"),
+                          Text(productData.name),
+                          Text('${productData.price}'),
                           Spacer(),
                           Text("수량체크 및 가격 변동"),
                         ],
@@ -71,7 +77,7 @@ class DescriptionPage extends StatelessWidget {
                         ),
                       ),
 
-                      child: Text('상품상세설명'),
+                      child: Text('상품 상세 설명'),
                     ),
                   ),
                   Expanded(
@@ -92,13 +98,13 @@ class DescriptionPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              Text('설명 좌라라락~'),
+              Text('${productData.descriptiuon}'),
             ],
           ),
         ),
       ),
       bottomSheet: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 34),
         child: Row(
           children: [
             IconButton(
