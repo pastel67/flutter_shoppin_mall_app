@@ -3,7 +3,6 @@ class ProductEntity {
   final String name; // 상품이름
   final String? descriptiuon; // 상세 내용
   final int price; // 가격
-  final int quantity; // 수량
   bool favorite; // 즐겨찾기
   final String? typingSoundLink;
 
@@ -12,8 +11,7 @@ class ProductEntity {
     required this.name,
     this.descriptiuon,
     required this.price,
-    this.quantity = 1,
-    required this.favorite,
+    this.favorite = false,
     this.typingSoundLink,
   });
 }
