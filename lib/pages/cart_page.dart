@@ -1,16 +1,4 @@
 import 'package:flutter/material.dart';
-import 'add_product_page.dart';
-import 'description_page.dart';
-import 'payment_page.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
-
-class CartItem {
-  ProductEntity product;
-  int quantity;
-  bool isSelected;
-
-  CartItem({required this.product, this.quantity = 1, this.isSelected = false});
-}
 
 List<CartItem> cartItems = [];
 

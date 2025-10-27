@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
-import 'home_page.dart';
-import 'cart_page.dart';
 
 class DescriptionPage extends StatelessWidget {
   final String title;
