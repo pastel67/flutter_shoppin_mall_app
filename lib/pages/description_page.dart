@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 import 'home_page.dart';
+import 'cart_page.dart';
 
 class DescriptionPage extends StatelessWidget {
   final String title;
@@ -108,7 +109,9 @@ class DescriptionPage extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                
+              },
               icon: Icon(Icons.shopping_cart, size: 30),
             ),
             SizedBox(width: 20),
