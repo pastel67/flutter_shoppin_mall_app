@@ -184,21 +184,22 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   Widget productListView({required String title}) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-          decoration: BoxDecoration(border: Border.all()),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DescriptionPage(
-                    title: title,
-                    productData: productList[index],
-                  ),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DescriptionPage(
+                  title: title,
+                  productData: productList[index],
                 ),
-              );
-            },
+              ),
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(border: Border.all()),
+
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
@@ -237,12 +238,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           onToggleFavorite(productList[index].favorite, index);
                         },
                         icon: productList[index].favorite
-                            ? Icon(Icons.favorite)
-                            : Icon(
-                                Icons.favorite_border,
-                                color: Colors.red,
-                                size: 20,
-                              ),
+                            ? Icon(Icons.favorite, color: Colors.red, size: 20)
+                            : Icon(Icons.favorite_border),
                       ),
                       SizedBox(height: 40),
                       Padding(
