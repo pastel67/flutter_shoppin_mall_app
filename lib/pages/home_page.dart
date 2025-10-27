@@ -50,7 +50,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '기본 키보드',
         price: 80000,
         favorite: false,
-        descriptiuon: '이곳은 상품 상세 내용을 작성하는 공간 입니다.',
+        descriptiuon:
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
     productList.add(
@@ -119,17 +120,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
       body: productList.isEmpty
           ? Center(child: Text("등록된 상품이 없습니다.", style: TextStyle()))
-          : GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DescriptionPage(title),
-                  ),
-                );
-              },
-              child: productListView(),
-            ),
+          : productListView(title: title),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -190,61 +181,74 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   }
 
   // 상품 리스트
-  Widget productListView() {
+  Widget productListView({required String title}) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(border: Border.all()),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              children: [
-                Container(
-                  height: 110,
-                  width: 110,
-                  child: Image.asset(productList[index].image),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    height: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${productList[index].name}"),
-                        SizedBox(height: 8),
-                        productList[index].descriptiuon == null
-                            ? SizedBox()
-                            : Text(
-                                "${productList[index].descriptiuon}",
-                                maxLines: 3,
-                              ),
-                      ],
-                    ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DescriptionPage(
+                    title: title,
+                    productData: productList[index],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        productList[index].favorite =
-                            !productList[index].favorite;
-                        onToggleFavorite(productList[index].favorite, index);
-                      },
-                      icon: productList[index].favorite
-                          ? Icon(Icons.favorite)
-                          : Icon(Icons.favorite_border),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                children: [
+                  Container(
+                    height: 110,
+                    width: 110,
+                    child: Image.asset(productList[index].image),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${productList[index].name}"),
+                          SizedBox(height: 8),
+                          productList[index].descriptiuon == null
+                              ? SizedBox()
+                              : Text(
+                                  "${productList[index].descriptiuon}",
+                                  maxLines: 3,
+                                ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10, right: 16.0),
-                      child: Text("${productList[index].price}"),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          productList[index].favorite =
+                              !productList[index].favorite;
+                          onToggleFavorite(productList[index].favorite, index);
+                        },
+                        icon: productList[index].favorite
+                            ? Icon(Icons.favorite)
+                            : Icon(Icons.favorite_border),
+                      ),
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10, right: 16.0),
+                        child: Text("${productList[index].price}"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
