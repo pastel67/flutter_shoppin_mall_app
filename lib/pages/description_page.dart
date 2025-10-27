@@ -5,7 +5,7 @@ class DescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('타다욧', style: TextStyle())),
+      appBar: AppBar(title: Text('타닥', style: TextStyle())),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -31,29 +31,15 @@ class DescriptionPage extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 13),
                             child: Row(
                               children: [
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  label: Text(
-                                    "리뷰",
-                                    style: TextStyle(fontSize: 8),
-                                  ),
-                                  icon: Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 10,
-                                  ),
-                                ),
+                                Text('리뷰(240)', style: TextStyle(fontSize: 10)),
+                                Icon(Icons.star, color: Colors.amber, size: 20),
                                 Spacer(),
-                                TextButton.icon(
+                                IconButton(
                                   onPressed: () {},
-                                  label: Text(
-                                    "즐겨찾기",
-                                    style: TextStyle(fontSize: 8),
-                                  ),
                                   icon: Icon(
                                     Icons.favorite,
                                     color: Colors.red,
-                                    size: 10,
+                                    size: 20,
                                   ),
                                 ),
                               ],
