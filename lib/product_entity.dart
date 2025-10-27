@@ -5,14 +5,6 @@ class ProductEntity {
   final int price; // 가격
   bool favorite; // 즐겨찾기
 
-  @override
-  void initState() {
-    if (descriptiuon == null) {
-      String descriptiuon = '';
-    }
-    ;
-  }
-
   ProductEntity({
     required this.image,
     required this.name,
@@ -21,3 +13,5 @@ class ProductEntity {
     required this.favorite,
   });
 }
+
+// 리뷰 엔티티

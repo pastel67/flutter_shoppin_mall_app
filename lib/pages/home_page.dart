@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
+import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
+import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
 class ShoppingHomePage extends StatefulWidget {
@@ -9,7 +12,7 @@ class ShoppingHomePage extends StatefulWidget {
 }
 
 class _ShoppingHomePageState extends State<ShoppingHomePage> {
-  final String title = '쇼핑몰 앱(가제)';
+  final String title = 'TaDak#⌨️';
 
   List<ProductEntity> productList = [];
 
@@ -19,9 +22,28 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
+  // 상품 추가시 데이터를 가져오는 함수
+  void getNewProductData({
+    required String newImage,
+    required final String newName,
+    final String? newDescriptiuon,
+    required final int newPrice,
+    required bool newFavorite,
+  }) {
+    productList.add(
+      ProductEntity(
+        image: newImage,
+        name: newName,
+        descriptiuon: newDescriptiuon,
+        price: newPrice,
+        favorite: newFavorite,
+      ),
+    );
+  }
+
+  //더미 데이터 추가
   @override
   void initState() {
-    //더미 데이터
     productList.add(
       ProductEntity(
         image: 'assets/기본키보드.webp',
@@ -103,8 +125,16 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Stack(
           children: [
             FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
               elevation: 5,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddProductPage()),
+                );
+              },
               child: Icon(Icons.add, size: 35),
             ),
           ],
@@ -125,30 +155,29 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 40)),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DescriptionPage()),
+                );
+              },
+              icon: Icon(Icons.home, size: 40),
+            ),
             Spacer(),
             IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 40)),
             Spacer(flex: 5),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartPage()),
+                );
+              },
               icon: Icon(Icons.shopping_cart, size: 40),
             ),
             Spacer(),
-            IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Center(
-                        child: Text("로그인 해주세요", style: TextStyle(fontSize: 20)),
-                      ),
-                    );
-                  },
-                );
-              },
-              icon: Icon(Icons.person, size: 40),
-            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.settings, size: 40)),
           ],
         ),
       ),
