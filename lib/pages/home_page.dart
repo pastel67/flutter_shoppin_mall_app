@@ -50,6 +50,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '기본 키보드',
         price: 80000,
         favorite: false,
+        descriptiuon: '이곳은 상품 상세 내용을 작성하는 공간 입니다.',
       ),
     );
     productList.add(
@@ -196,7 +197,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(border: Border.all()),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               children: [
                 Container(
@@ -209,34 +210,39 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   child: Container(
                     height: 100,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("${productList[index].name}"),
-                        Text("${productList[index].descriptiuon}"),
-                        SizedBox(height: 10),
+                        SizedBox(height: 8),
+                        productList[index].descriptiuon == null
+                            ? SizedBox()
+                            : Text(
+                                "${productList[index].descriptiuon}",
+                                maxLines: 3,
+                              ),
                       ],
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          productList[index].favorite =
-                              !productList[index].favorite;
-                          onToggleFavorite(productList[index].favorite, index);
-                        },
-                        icon: productList[index].favorite
-                            ? Icon(Icons.favorite)
-                            : Icon(Icons.favorite_border),
-                      ),
-                      SizedBox(height: 50),
-                      Text("${productList[index].price}"),
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        productList[index].favorite =
+                            !productList[index].favorite;
+                        onToggleFavorite(productList[index].favorite, index);
+                      },
+                      icon: productList[index].favorite
+                          ? Icon(Icons.favorite)
+                          : Icon(Icons.favorite_border),
+                    ),
+                    SizedBox(height: 40),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10, right: 16.0),
+                      child: Text("${productList[index].price}"),
+                    ),
+                  ],
                 ),
               ],
             ),

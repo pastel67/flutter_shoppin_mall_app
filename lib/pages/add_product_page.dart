@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AddProductPage extends StatelessWidget {
+class AddProductPage extends StatefulWidget {
   AddProductPage(this.title);
 
   String title;
+
+  @override
+  State<AddProductPage> createState() => _AddProductPageState();
+}
+
+class _AddProductPageState extends State<AddProductPage> {
   TextEditingController prodcutNameController = TextEditingController();
 
   int productPrice = 0;
@@ -11,7 +17,7 @@ class AddProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: TextStyle())),
+      appBar: AppBar(title: Text(widget.title, style: TextStyle())),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 8),
@@ -26,9 +32,38 @@ class AddProductPage extends StatelessWidget {
             inputField(title: "상품 이름"),
             SizedBox(height: 5),
             inputField(title: "상품 가격", isController: false, isFinction: true),
-            SizedBox(height: 5),            
+            SizedBox(height: 5),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("상품 상세 내용"),
+                Container(
+                  child: TextField(
+                    decoration: InputDecoration(border: InputBorder.none),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 10,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
+      ),
+      bottomSheet: Row(
+        children: [
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              color: Colors.amber,
+              height: 90,
+              width: double.maxFinite,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: Center(child: Text("등록 하기")),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
