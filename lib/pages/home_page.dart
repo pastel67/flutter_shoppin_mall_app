@@ -122,7 +122,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DescriptionPage()),
+                  MaterialPageRoute(
+                    builder: (context) => DescriptionPage(title),
+                  ),
                 );
               },
               child: productListView(),

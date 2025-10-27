@@ -1,13 +1,16 @@
-
-
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class DescriptionPage extends StatelessWidget {
+  String title;
+  
+
+  DescriptionPage(this.title);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('타다욧', style: TextStyle())),
+      appBar: AppBar(title: Text(title, style: TextStyle())),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -61,13 +64,11 @@ class DescriptionPage extends StatelessWidget {
                       Text("상품명"),
                       Text("가격"),
                       Text("수량체크 및 가격 변동"),
-                      Row(
-                        children: [
+                      Row(children: [
                           
                         ],
-                      )
+                      ),
                     ],
-
                   ),
                 ),
               ],
