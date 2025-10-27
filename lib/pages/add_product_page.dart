@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AddProductPage extends StatefulWidget {
+class AddProductPage extends StatelessWidget {
   AddProductPage(this.title);
 
   final String title;
 
-  @override
-  State<AddProductPage> createState() => _AddProductPageState();
-}
-
-class _AddProductPageState extends State<AddProductPage> {
   TextEditingController productNameController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
   int productPrice = 0;
 
   bool isIncluded() {
@@ -27,14 +23,14 @@ class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title, style: TextStyle())),
+      appBar: AppBar(title: Text(title, style: TextStyle())),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
             Container(
-              color: Colors.amber.withValues(alpha: 0.3),
+              color: Colors.lightBlue.withValues(alpha: 0.3),
               height: 200,
               child: Center(child: Text("이미지")),
             ),
@@ -71,8 +67,8 @@ class _AddProductPageState extends State<AddProductPage> {
                       onChanged: (value) {
                         productPrice = int.tryParse(value) ?? 0;
                       },
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
                         contentPadding: EdgeInsets.only(left: 10),
                       ),
                       maxLines: 1,
@@ -102,7 +98,6 @@ class _AddProductPageState extends State<AddProductPage> {
           Flexible(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              color: Colors.amber,
               height: 90,
               width: double.maxFinite,
               child: Padding(

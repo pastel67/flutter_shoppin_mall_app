@@ -12,7 +12,7 @@ class ShoppingHomePage extends StatefulWidget {
 }
 
 class _ShoppingHomePageState extends State<ShoppingHomePage> {
-  final String title = 'TaDak#⌨️';
+  final String title = 'TaDak#';
 
   List<ProductEntity> productList = [];
 
