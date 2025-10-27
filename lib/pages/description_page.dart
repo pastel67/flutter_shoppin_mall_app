@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class DescriptionPage extends StatelessWidget {
+  String title;
+  
+
+  DescriptionPage(this.title);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('타다욧', style: TextStyle())),
+      appBar: AppBar(title: Text(title, style: TextStyle())),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
