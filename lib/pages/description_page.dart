@@ -34,11 +34,10 @@ class DescriptionPage extends StatelessWidget {
                           return GestureDetector(
                             onTap: () => Navigator.pop(context),
                             child: AlertDialog(
-                              content: SizedBox(
-                                height: 300,
-                                width: 350,
-                                child: Expanded(
-                                  child: Image.asset(productData.image),
+                              content: Expanded(
+                                child: Image.asset(
+                                  productData.image,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -167,7 +166,7 @@ class DescriptionPage extends StatelessWidget {
                         foregroundColor: Colors.black,
                         fixedSize: Size(100, 50),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(0),
+                          borderRadius: BorderRadiusGeometry.circular(15),
                         ),
                       ),
 
@@ -208,7 +207,7 @@ class DescriptionPage extends StatelessWidget {
                   foregroundColor: Colors.white,
                   fixedSize: Size(100, 50),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(0),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: (Text(

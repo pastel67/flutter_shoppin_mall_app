@@ -31,15 +31,6 @@ class _AddProductPageState extends State<AddProductPage> {
       return true;
     }
   }
-  // () async {
-  //                   final ImagePicker pickedFile = ImagePicker();
-  //                   final XFile? image = await pickedFile.pickImage(
-  //                     source: ImageSource.gallery,
-  //                   );
-  //                   if (image != null) {
-  //                     productImage = image;
-  //                   }
-  //                 },
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +58,20 @@ class _AddProductPageState extends State<AddProductPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             fileUploudButton(
-                              function: () => print('링크'),
+                              upLoudFunction: () {},
                               title: '파일 링크',
                               icon: Icons.link,
                             ),
                             fileUploudButton(
-                              function: () => print('갤러리'),
+                              upLoudFunction: () async {
+                                final ImagePicker pickedFile = ImagePicker();
+                                final XFile? image = await pickedFile.pickImage(
+                                  source: ImageSource.gallery,
+                                );
+                                if (image != null) {
+                                  productImage = image;
+                                }
+                              },
                               title: '갤러리',
                               icon: Icons.add_photo_alternate,
                             ),
@@ -206,8 +205,9 @@ class _AddProductPageState extends State<AddProductPage> {
     );
   }
 
+  // 이미지 파일 업로드 버튼
   Widget fileUploudButton({
-    required void function,
+    required VoidCallback upLoudFunction,
     required String title,
     required IconData icon,
   }) {
@@ -215,9 +215,7 @@ class _AddProductPageState extends State<AddProductPage> {
       height: 100,
       width: 120,
       child: ElevatedButton(
-        onPressed: () {
-          function;
-        },
+        onPressed: upLoudFunction,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(

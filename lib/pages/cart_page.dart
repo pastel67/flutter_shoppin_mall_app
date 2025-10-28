@@ -169,7 +169,10 @@ class _CartPageState extends State<CartPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.remove_circle_outline),
+                          icon: Icon(
+                            Icons.indeterminate_check_box,
+                            color: Colors.lightBlueAccent,
+                          ),
                           onPressed: () {
                             setState(() {
                               if (cartItem.quantity > 1) {
@@ -185,7 +188,10 @@ class _CartPageState extends State<CartPage> {
                           style: TextStyle(fontFamily: 'text'),
                         ),
                         IconButton(
-                          icon: Icon(Icons.add_circle_outline),
+                          icon: Icon(
+                            Icons.add_box,
+                            color: Colors.lightBlueAccent,
+                          ),
                           onPressed: () {
                             setState(() {
                               cartItem.quantity++;
