@@ -44,7 +44,12 @@ class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title, style: TextStyle())),
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         width: double.infinity,
@@ -83,7 +88,11 @@ class _AddProductPageState extends State<AddProductPage> {
                   child: Center(
                     child: Text(
                       "이곳을 터치해 이미지를 추가 하세요",
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontFamily: 'text',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -103,13 +112,14 @@ class _AddProductPageState extends State<AddProductPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("상품 상세 내용"),
+                  Text("상품 상세 내용", style: TextStyle(fontFamily: 'text')),
                   TextField(
                     onChanged: (value) {
                       productPrice = int.tryParse(value) ?? 0;
                       setState(() {});
                     },
                     controller: descriptionController,
+                    style: TextStyle(fontFamily: 'text'),
                     decoration: InputDecoration(border: InputBorder.none),
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
@@ -135,7 +145,7 @@ class _AddProductPageState extends State<AddProductPage> {
   }) {
     return Row(
       children: [
-        Text(title),
+        Text(title, style: TextStyle(fontFamily: 'text')),
         SizedBox(width: 10),
         Expanded(
           child: Container(
@@ -152,6 +162,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   ? [FilteringTextInputFormatter.digitsOnly]
                   : null,
               controller: controller,
+              style: TextStyle(fontFamily: 'text', fontWeight: FontWeight.bold),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 10),
@@ -183,7 +194,11 @@ class _AddProductPageState extends State<AddProductPage> {
             onPressed: isIncluded() ? () {} : null,
             child: Text(
               "등록 하기",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontFamily: 'text',
+              ),
             ),
           ),
         ),
@@ -211,7 +226,10 @@ class _AddProductPageState extends State<AddProductPage> {
               Icon(icon, size: 30, color: const Color.fromARGB(255, 0, 31, 84)),
               Text(
                 title,
-                style: TextStyle(color: const Color.fromARGB(255, 0, 31, 84)),
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 0, 31, 84),
+                  fontFamily: 'text',
+                ),
               ),
             ],
           ),

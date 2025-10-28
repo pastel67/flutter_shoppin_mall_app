@@ -42,9 +42,19 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+      ),
       body: widget.cartList.isEmpty
-          ? Center(child: Text('장바구니가 비어 있습니다.'))
+          ? Center(
+              child: Text(
+                '장바구니가 비어 있습니다.',
+                style: TextStyle(fontFamily: 'text'),
+              ),
+            )
           : cartList(),
       bottomSheet: Container(
         width: double.infinity,
@@ -57,11 +67,18 @@ class _CartPageState extends State<CartPage> {
             Row(
               children: [
                 SizedBox(width: 10),
-                Text('총 결제예상 금액  ', style: TextStyle(fontSize: 15)),
+                Text(
+                  '총 결제예상 금액  ',
+                  style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                ),
                 Spacer(),
                 Text(
                   '${calculatTotalPrice()}원',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'text',
+                  ),
                 ),
               ],
             ),
@@ -77,6 +94,7 @@ class _CartPageState extends State<CartPage> {
                         context,
                         MaterialPageRoute(
                           builder: (contaxt) => PaymentPage(
+                            title: widget.title,
                             totalPrice: calculatTotalPrice(),
                             selectedItems: selectedItems,
                           ),
@@ -92,7 +110,11 @@ class _CartPageState extends State<CartPage> {
               ),
               child: Text(
                 '${cartItemCount()}개 결제하기',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontFamily: 'text',
+                ),
               ),
             ),
           ],
@@ -138,7 +160,10 @@ class _CartPageState extends State<CartPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20),
-                    Text(productData.name, style: TextStyle(fontSize: 16)),
+                    Text(
+                      productData.name,
+                      style: TextStyle(fontSize: 16, fontFamily: 'text'),
+                    ),
                     SizedBox(height: 20),
                     //수량 체크 바꿀수 있게
                     Row(
@@ -155,7 +180,10 @@ class _CartPageState extends State<CartPage> {
                             cartItem.quantity = cartItem.quantity;
                           },
                         ),
-                        Text('${cartItem.quantity}'),
+                        Text(
+                          '${cartItem.quantity}',
+                          style: TextStyle(fontFamily: 'text'),
+                        ),
                         IconButton(
                           icon: Icon(Icons.add_circle_outline),
                           onPressed: () {
@@ -187,14 +215,21 @@ class _CartPageState extends State<CartPage> {
                               widget.cartList.removeAt(index);
                             });
                           },
-                          child: Text('삭제', style: TextStyle(fontSize: 12)),
+                          child: Text(
+                            '삭제',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'text',
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
                       ),
 
                       SizedBox(height: 20),
                       Text(
                         '가격 ${cartItem.finalPrice()}원',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15, fontFamily: 'text'),
                       ),
                       SizedBox(height: 10),
                     ],

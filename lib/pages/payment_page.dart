@@ -3,10 +3,15 @@ import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/home_page.dart';
 
 class PaymentPage extends StatefulWidget {
+  final String title;
   final int totalPrice;
   final List<CartItem> selectedItems;
 
-  PaymentPage({required this.totalPrice, required this.selectedItems});
+  PaymentPage({
+    required this.title,
+    required this.totalPrice,
+    required this.selectedItems,
+  });
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -21,19 +26,24 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text('타타탁')),
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('받는분 성함'),
+            Text('받는분 성함', style: TextStyle(fontFamily: 'text')),
             TextField(maxLines: 1, controller: nameController),
             SizedBox(height: 10),
-            Text('배송지 입력'),
+            Text('배송지 입력', style: TextStyle(fontFamily: 'text')),
             TextField(controller: addressController),
             SizedBox(height: 10),
-            Text('배달 요청 사항'),
+            Text('배달 요청 사항', style: TextStyle(fontFamily: 'text')),
             TextField(controller: requestController),
 
             // 장바구니에 담긴거 가져와서 보여주기
@@ -62,13 +72,20 @@ class _PaymentPageState extends State<PaymentPage> {
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
+                                      fontFamily: 'text',
                                     ),
                                   ),
-                                  Text('수량: ${cartItem.quantity}'),
+                                  Text(
+                                    '수량: ${cartItem.quantity}',
+                                    style: TextStyle(fontFamily: 'text'),
+                                  ),
                                 ],
                               ),
                             ),
-                            Text('${cartItem.finalPrice()}원'),
+                            Text(
+                              '${cartItem.finalPrice()}원',
+                              style: TextStyle(fontFamily: 'text'),
+                            ),
                           ],
                         ),
                       ),
@@ -90,28 +107,43 @@ class _PaymentPageState extends State<PaymentPage> {
                     children: [
                       Row(
                         children: [
-                          Text('총 상품 가격', style: TextStyle(fontSize: 20)),
+                          Text(
+                            '총 상품 가격',
+                            style: TextStyle(fontFamily: 'text', fontSize: 20),
+                          ),
                           Spacer(),
                           Text(
                             '${widget.totalPrice}원',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15, fontFamily: 'text'),
                           ),
                         ],
                       ),
                       SizedBox(height: 15),
                       Row(
                         children: [
-                          Text('쿠폰 할인비', style: TextStyle(fontSize: 20)),
+                          Text(
+                            '쿠폰 할인비',
+                            style: TextStyle(fontSize: 20, fontFamily: 'text'),
+                          ),
                           Spacer(),
-                          Text('0원', style: TextStyle(fontSize: 15)),
+                          Text(
+                            '0원',
+                            style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                          ),
                         ],
                       ),
                       SizedBox(height: 15),
                       Row(
                         children: [
-                          Text('배송비', style: TextStyle(fontSize: 20)),
+                          Text(
+                            '배송비',
+                            style: TextStyle(fontSize: 20, fontFamily: 'text'),
+                          ),
                           Spacer(),
-                          Text('0원', style: TextStyle(fontSize: 15)),
+                          Text(
+                            '0원',
+                            style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                          ),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -126,10 +158,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('결제 완료'),
+                      title: Text(
+                        '결제 완료',
+                        style: TextStyle(fontFamily: 'text'),
+                      ),
                       content: Text(
                         '타닥을 이용해 주셔서 감사합니다.',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15, fontFamily: 'text'),
                       ),
                       actions: [
                         TextButton(
@@ -144,7 +179,10 @@ class _PaymentPageState extends State<PaymentPage> {
                           },
                           child: Text(
                             '확인',
-                            style: TextStyle(color: Colors.lightBlue),
+                            style: TextStyle(
+                              color: Colors.lightBlue,
+                              fontFamily: 'text',
+                            ),
                           ),
                         ),
                       ],
@@ -161,7 +199,11 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               child: Text(
                 '${widget.totalPrice}원 결제하기',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontFamily: 'text',
+                ),
               ),
             ),
           ],

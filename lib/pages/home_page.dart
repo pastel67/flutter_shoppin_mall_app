@@ -142,10 +142,20 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: TextStyle())),
+      appBar: AppBar(
+        title: Text(
+          title,
+          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+      ),
 
       body: productList.isEmpty
-          ? Center(child: Text("등록된 상품이 없습니다.", style: TextStyle()))
+          ? Center(
+              child: Text(
+                "등록된 상품이 없습니다.",
+                style: TextStyle(fontFamily: 'text'),
+              ),
+            )
           : productListView(title: title),
 
       floatingActionButton: Padding(
@@ -220,6 +230,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
                   title: title,
+
                   productData: productList[index],
                 ),
               ),
@@ -233,6 +244,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
+                  SizedBox(width: 10),
                   SizedBox(
                     height: 110,
                     width: 110,
@@ -245,13 +257,20 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(productList[index].name),
+                          Text(
+                            productList[index].name,
+                            style: TextStyle(
+                              fontFamily: 'text',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 8),
                           productList[index].descriptiuon == null
                               ? SizedBox()
                               : Text(
                                   "${productList[index].descriptiuon}",
                                   maxLines: 3,
+                                  style: TextStyle(fontFamily: 'text'),
                                 ),
                         ],
                       ),
