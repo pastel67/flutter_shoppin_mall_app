@@ -163,6 +163,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Stack(
           children: [
             FloatingActionButton(
+              backgroundColor: Colors.lightBlue,
+              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -238,7 +240,13 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           },
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-            decoration: BoxDecoration(border: Border.all()),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color.fromARGB(255, 70, 75, 78),
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
 
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),

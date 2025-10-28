@@ -47,7 +47,7 @@ class DescriptionPage extends StatelessWidget {
                       );
                     },
                     child: SizedBox(
-                      width: 150,
+                      width: 200,
                       height: 200,
                       child: Image.asset(productData.image),
                     ),
@@ -56,9 +56,10 @@ class DescriptionPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: SizedBox(
-                      width: 200,
+                      width: 150,
                       height: 150,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Row(
@@ -88,14 +89,19 @@ class DescriptionPage extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'text',
                               fontWeight: FontWeight.bold,
+                              fontSize: 20,
                             ),
                           ),
+                          SizedBox(height: 20),
                           Row(
                             children: [
-                              Spacer(flex: 7),
+                              Spacer(flex: 10),
                               Text(
                                 '${productData.price}',
-                                style: TextStyle(fontFamily: 'text'),
+                                style: TextStyle(
+                                  fontFamily: 'text',
+                                  fontSize: 17,
+                                ),
                               ),
                               Spacer(flex: 1),
                             ],
