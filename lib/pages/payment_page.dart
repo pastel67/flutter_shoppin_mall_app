@@ -46,9 +46,9 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            inputText('받는분 성함'),
-            inputText('배송지 입력'),
-            inputText('배달 요청 사항'),
+            inputText('받는분 성함',nameController),
+            inputText('배송지 입력',addressController),
+            inputText('배달 요청 사항',requestController),
             // 장바구니에 담긴거 가져와서 보여주기
             Expanded(
               child: SingleChildScrollView(
@@ -224,14 +224,14 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  Column inputText(String title) {
+  Column inputText(String title, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyle(fontFamily: 'text')),
         TextField(
           maxLines: 1,
-          controller: nameController,
+          controller: controller,
           cursorColor: const Color.fromARGB(255, 0, 54, 73),
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
