@@ -24,6 +24,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
+  // void addProductInCart (){
+  //   cartList.add()
+  // }
+
   // 상품 추가시 데이터를 가져오는 함수
   void getNewProductData({
     required String newImage,
