@@ -88,8 +88,8 @@ class _CartPageState extends State<CartPage> {
                         activeColor: Colors.lightBlue,
                       ),
                       SizedBox(
-                        width: 40,
-                        height: 80,
+                        width: 70,
+                        height: 110,
                         child: Image.asset(productData.image),
                       ),
                       Padding(
@@ -134,10 +134,11 @@ class _CartPageState extends State<CartPage> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 40),
+                      SizedBox(width: 30),
                       Padding(
                         padding: const EdgeInsets.all(.0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             SizedBox(
                               child: Align(
@@ -161,6 +162,7 @@ class _CartPageState extends State<CartPage> {
                           ],
                         ),
                       ),
+                      SizedBox(width: 10),
                     ],
                   ),
                 );
