@@ -309,7 +309,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           onToggleFavorite(productList[index].favorite, index);
                         },
                         icon: productList[index].favorite
-                            ? Icon(Icons.favorite, color: Colors.red, size: 20)
+                            ? Icon(Icons.favorite, color: Colors.red, size: 25)
                             : Icon(Icons.favorite_border),
                       ),
                       SizedBox(height: 40),
