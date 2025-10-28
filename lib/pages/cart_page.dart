@@ -136,6 +136,7 @@ class _CartPageState extends State<CartPage> {
   ListView cartList() {
     final double bottomHeight = 120;
     return ListView.builder(
+      reverse: true,
       padding: EdgeInsets.only(
         bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
       ),

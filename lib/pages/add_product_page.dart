@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductPage extends StatefulWidget {
-  AddProductPage({required this.title});
+  AddProductPage({required this.title, required this.nawProduct});
 
   final String title;
+  void Function(String image, String name, int prise, String descriptiuon)
+  nawProduct;
 
   @override
   State<AddProductPage> createState() => _AddProductPageState();
@@ -19,17 +21,26 @@ class _AddProductPageState extends State<AddProductPage> {
   TextEditingController descriptionController = TextEditingController();
 
   int productPrice = 0;
-  XFile? productImage;
+
   final ImagePicker picker = ImagePicker();
+  XFile? productImage;
 
   bool isIncluded() {
     if (productNameController.text.isEmpty ||
         productPriceController.text.isEmpty ||
-        descriptionController.text.isEmpty) {
+        descriptionController.text.isEmpty ||
+        productImage == null) {
       return false;
     } else {
       return true;
     }
+  }
+
+  Future<void> getProductImage() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      productImage = image;
+    });
   }
 
   @override
@@ -62,17 +73,19 @@ class _AddProductPageState extends State<AddProductPage> {
                   showUploadMenu(context);
                 },
                 child: Container(
-                  color: const Color.fromARGB(255, 205, 239, 255),
+                  color: const Color.fromARGB(255, 218, 239, 249),
                   height: 200,
                   child: Center(
-                    child: Text(
-                      "이곳을 터치해 이미지를 추가 하세요",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontFamily: 'text',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: productImage == null
+                        ? Text(
+                            "이곳을 터치해 이미지를 추가 하세요",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontFamily: 'text',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Image.file(File(productImage!.path), height: 200),
                   ),
                 ),
               ),
@@ -87,19 +100,19 @@ class _AddProductPageState extends State<AddProductPage> {
                 controller: productPriceController,
                 isParsing: true,
               ),
-              SizedBox(height: 20),
+              Divider(height: 50, thickness: 3, color: Colors.blue[200]),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("상품 상세 내용", style: TextStyle(fontFamily: 'text')),
                   TextField(
-                    onChanged: (value) {
-                      productPrice = int.tryParse(value) ?? 0;
-                      setState(() {});
-                    },
+                    onChanged: (value) => setState(() {}),
+                    cursorColor: const Color.fromARGB(255, 0, 54, 73),
                     controller: descriptionController,
                     style: TextStyle(fontFamily: 'text'),
-                    decoration: InputDecoration(border: InputBorder.none),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "상품 상세 내용",
+                    ),
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
                   ),
@@ -140,17 +153,9 @@ class _AddProductPageState extends State<AddProductPage> {
                 icon: Icons.link,
               ),
               fileUploadButton(
-                uploadFunction: () async {
-                  final ImagePicker pickedFile = ImagePicker();
-                  final XFile? image = await pickedFile.pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (image != null) {
-                    productImage = image;
-                  }
+                uploadFunction: () {
+                  getProductImage();
                   Navigator.pop(context);
-                  setState(() {});
-                  print(image.runtimeType);
                 },
                 title: '갤러리',
                 icon: Icons.add_photo_alternate,
@@ -173,23 +178,22 @@ class _AddProductPageState extends State<AddProductPage> {
         SizedBox(width: 10),
         Expanded(
           child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color.fromARGB(255, 0, 31, 84)),
-            ),
             child: TextField(
               onChanged: (value) {
                 isParsing ? productPrice = int.tryParse(value) ?? 0 : null;
                 print(controller.text);
-                setState(() {});
               },
               inputFormatters: isParsing
                   ? [FilteringTextInputFormatter.digitsOnly]
                   : null,
               controller: controller,
+              cursorColor: const Color.fromARGB(255, 0, 54, 73),
               style: TextStyle(fontFamily: 'text', fontWeight: FontWeight.bold),
               decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 10),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.lightBlue),
+                ),
+                contentPadding: EdgeInsets.only(left: 5),
               ),
               maxLines: 1,
             ),
@@ -215,7 +219,17 @@ class _AddProductPageState extends State<AddProductPage> {
                 borderRadius: BorderRadiusGeometry.circular(5),
               ),
             ),
-            onPressed: isIncluded() ? () {} : null,
+            onPressed: isIncluded()
+                ? () {
+                    widget.nawProduct(
+                      productImage!.path,
+                      productNameController.text,
+                      productPrice,
+                      descriptionController.text,
+                    );
+                    Navigator.pop(context);
+                  }
+                : null,
             child: Text(
               "등록 하기",
               style: TextStyle(
@@ -237,9 +251,15 @@ class _AddProductPageState extends State<AddProductPage> {
     required IconData icon,
   }) {
     return SizedBox(
-      height: 100,
+      height: 90,
       width: 120,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.lightBlue[100],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
         onPressed: uploadFunction,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
