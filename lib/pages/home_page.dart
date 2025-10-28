@@ -6,7 +6,7 @@ import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
 class ShoppingHomePage extends StatefulWidget {
-  ShoppingHomePage({super.key});
+  const ShoppingHomePage({super.key});
 
   @override
   State<ShoppingHomePage> createState() => _ShoppingHomePageState();
@@ -134,7 +134,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
 
     for (int i = 0; i < productList.length; i++) {
-      // ✅ 더미 데이터 (디자인용)
       cartList.add(CartItem(product: productList[i]));
     }
     super.initState();
@@ -234,19 +233,19 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 110,
                     width: 110,
                     child: Image.asset(productList[index].image),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 100,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${productList[index].name}"),
+                          Text(productList[index].name),
                           SizedBox(height: 8),
                           productList[index].descriptiuon == null
                               ? SizedBox()
