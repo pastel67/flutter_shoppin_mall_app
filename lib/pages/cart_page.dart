@@ -49,10 +49,17 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
       body: widget.cartList.isEmpty
-          ? Center(
-              child: Text(
-                '장바구니가 비어 있습니다.',
-                style: TextStyle(fontFamily: 'text'),
+          ? Container(
+              height: 550,
+              child: Center(
+                child: Text(
+                  '장바구니가 비어 있습니다.',
+                  style: TextStyle(
+                    fontFamily: 'text',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
               ),
             )
           : cartList(),
@@ -135,7 +142,16 @@ class _CartPageState extends State<CartPage> {
         final productData = widget.cartList[index].product;
         // 장바구니 카드 꾸미기
         return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: BorderSide(
+              color: const Color.fromARGB(255, 70, 75, 78),
+              width: 3,
+            ),
+          ),
+
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

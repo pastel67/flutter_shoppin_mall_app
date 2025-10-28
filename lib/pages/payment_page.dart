@@ -52,6 +52,13 @@ class _PaymentPageState extends State<PaymentPage> {
                 child: Column(
                   children: widget.selectedItems.map((cartItem) {
                     return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(
+                          color: const Color.fromARGB(255, 70, 75, 78),
+                          width: 3,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(vertical: 6),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -98,8 +105,11 @@ class _PaymentPageState extends State<PaymentPage> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: 3, color: Colors.lightBlueAccent),
-                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 157, 219, 247),
+                    width: 5,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -182,6 +192,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             style: TextStyle(
                               color: Colors.lightBlue,
                               fontFamily: 'text',
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
