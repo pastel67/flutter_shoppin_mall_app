@@ -59,7 +59,7 @@ class _AddProductPageState extends State<AddProductPage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.blueAccent),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
       body: Container(
@@ -89,7 +89,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
               inputProductData(
                 title: '상품 이름',
                 controller: productNameController,

@@ -36,7 +36,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.blueAccent),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
       body: Padding(
@@ -76,12 +76,13 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     padding: const EdgeInsets.only(left: 5),
                     child: SizedBox(
                       width: 150,
-                      height: 150,
+                      height: 200,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   '리뷰(240)',
@@ -90,7 +91,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                                     fontFamily: 'text',
                                   ),
                                 ),
-                                Icon(Icons.star, color: Colors.amber, size: 20),
+                                Icon(Icons.star, color: Colors.amber, size: 25),
                                 Spacer(),
                                 IconButton(
                                   onPressed: () {
@@ -115,6 +116,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                               ],
                             ),
                           ),
+                          SizedBox(height: 10),
                           Text(
                             widget.productData.name,
                             style: TextStyle(
@@ -123,12 +125,30 @@ class _DescriptionPageState extends State<DescriptionPage> {
                               fontSize: 20,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.favorite_border,
+                                color: Colors.lightBlueAccent,
+                                size: 10,
+                              ),
+                              Text(
+                                '173명이 찜한 상품입니다.',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'text',
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Spacer(),
                           Row(
                             children: [
                               Spacer(flex: 10),
                               Text(
-                                '${widget.productData.price}',
+                                '${widget.productData.price}원',
                                 style: TextStyle(
                                   fontFamily: 'text',
                                   fontSize: 17,
@@ -245,7 +265,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                   foregroundColor: Colors.white,
                   fixedSize: Size(100, 50),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
                 child: (Text(

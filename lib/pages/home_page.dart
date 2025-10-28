@@ -178,7 +178,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.blueAccent),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
 
@@ -339,8 +339,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       ),
                       SizedBox(height: 40),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10, right: 16.0),
-                        child: Text("${productList[index].price}"),
+                        padding: const EdgeInsets.only(bottom: 5, right: 10),
+                        child: Text(
+                          "${productList[index].price}원",
+                          style: TextStyle(fontFamily: 'text', fontSize: 15),
+                        ),
                       ),
                     ],
                   ),

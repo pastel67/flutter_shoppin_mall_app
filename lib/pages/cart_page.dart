@@ -55,7 +55,7 @@ class _CartPageState extends State<CartPage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.blueAccent),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
       body: widget.cartList.isEmpty
@@ -189,17 +189,18 @@ class _CartPageState extends State<CartPage> {
                     SizedBox(height: 20),
                     Text(
                       productData.name,
-                      style: TextStyle(fontSize: 16, fontFamily: 'text'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'text',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 20),
                     //수량 체크 바꿀수 있게
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(
-                            Icons.indeterminate_check_box,
-                            color: Colors.lightBlueAccent,
-                          ),
+                          icon: Icon(Icons.indeterminate_check_box),
                           onPressed: () {
                             setState(() {
                               if (cartItem.quantity > 1) {
@@ -215,10 +216,7 @@ class _CartPageState extends State<CartPage> {
                           style: TextStyle(fontFamily: 'text'),
                         ),
                         IconButton(
-                          icon: Icon(
-                            Icons.add_box,
-                            color: Colors.lightBlueAccent,
-                          ),
+                          icon: Icon(Icons.add_box),
                           onPressed: () {
                             setState(() {
                               cartItem.quantity++;
