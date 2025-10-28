@@ -13,7 +13,12 @@ class DescriptionPage extends StatelessWidget {
     CartItem addCartProduct;
 
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: TextStyle())),
+      appBar: AppBar(
+        title: Text(
+          title,
+          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -58,7 +63,13 @@ class DescriptionPage extends StatelessWidget {
                           Expanded(
                             child: Row(
                               children: [
-                                Text('리뷰(240)', style: TextStyle(fontSize: 10)),
+                                Text(
+                                  '리뷰(240)',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'text',
+                                  ),
+                                ),
                                 Icon(Icons.star, color: Colors.amber, size: 20),
                                 Spacer(),
                                 IconButton(
@@ -72,11 +83,20 @@ class DescriptionPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Text(productData.name),
+                          Text(
+                            productData.name,
+                            style: TextStyle(
+                              fontFamily: 'text',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           Row(
                             children: [
                               Spacer(flex: 7),
-                              Text('${productData.price}'),
+                              Text(
+                                '${productData.price}',
+                                style: TextStyle(fontFamily: 'text'),
+                              ),
                               Spacer(flex: 1),
                             ],
                           ),
@@ -130,7 +150,13 @@ class DescriptionPage extends StatelessWidget {
                         ),
                       ),
 
-                      child: Text('상품 상세 설명'),
+                      child: Text(
+                        '상품 상세 설명',
+                        style: TextStyle(
+                          fontFamily: 'text',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -145,13 +171,22 @@ class DescriptionPage extends StatelessWidget {
                         ),
                       ),
 
-                      child: Text('리뷰 수'),
+                      child: Text(
+                        '리뷰 수',
+                        style: TextStyle(
+                          fontFamily: 'text',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 20),
-              Text('${productData.descriptiuon}'),
+              Text(
+                '${productData.descriptiuon}',
+                style: TextStyle(fontFamily: 'text'),
+              ),
             ],
           ),
         ),
@@ -176,7 +211,14 @@ class DescriptionPage extends StatelessWidget {
                     borderRadius: BorderRadiusGeometry.circular(0),
                   ),
                 ),
-                child: (Text('구매하기')),
+                child: (Text(
+                  '구매하기',
+                  style: TextStyle(
+                    fontFamily: 'text',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )),
               ),
             ),
           ],
