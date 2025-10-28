@@ -14,9 +14,19 @@ class DescriptionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        centerTitle: true,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+          child: Text(
+            title,
+            style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Divider(color: Colors.blueAccent),
         ),
       ),
       body: Padding(

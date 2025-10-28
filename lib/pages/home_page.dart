@@ -32,7 +32,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   void getNewProductData({
     required String newImage,
     required final String newName,
-    final String? newDescriptiuon,
+    required final String newDescriptiuon,
     required final int newPrice,
     required bool newFavorite,
   }) {
@@ -66,6 +66,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '단청 키보드',
         price: 160000,
         favorite: true,
+        descriptiuon:
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
     productList.add(
@@ -74,6 +76,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '적축 키보드',
         price: 100000,
         favorite: false,
+        descriptiuon:
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
     productList.add(
@@ -126,6 +130,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '단청 키보드',
         price: 160000,
         favorite: true,
+        descriptiuon:
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
     productList.add(
@@ -134,6 +140,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         name: '단청 키보드',
         price: 160000,
         favorite: true,
+        descriptiuon:
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
       ),
     );
 
@@ -147,9 +155,14 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           title,
           style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Divider(color: Colors.blueAccent),
         ),
       ),
 
@@ -269,13 +282,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                             ),
                           ),
                           SizedBox(height: 8),
-                          productList[index].descriptiuon == null
-                              ? SizedBox()
-                              : Text(
-                                  "${productList[index].descriptiuon}",
-                                  maxLines: 3,
-                                  style: TextStyle(fontFamily: 'text'),
-                                ),
+                          Text(
+                            productList[index].descriptiuon,
+                            maxLines: 3,
+                            style: TextStyle(fontFamily: 'text'),
+                          ),
                         ],
                       ),
                     ),
