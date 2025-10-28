@@ -36,9 +36,19 @@ class _AddProductPageState extends State<AddProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        centerTitle: true,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+          child: Text(
+            widget.title,
+            style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Divider(color: Colors.blueAccent),
         ),
       ),
       body: Container(
@@ -49,37 +59,7 @@ class _AddProductPageState extends State<AddProductPage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        margin: EdgeInsets.fromLTRB(20, 18, 20, 34),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            fileUploudButton(
-                              upLoudFunction: () {},
-                              title: '파일 링크',
-                              icon: Icons.link,
-                            ),
-                            fileUploudButton(
-                              upLoudFunction: () async {
-                                final ImagePicker pickedFile = ImagePicker();
-                                final XFile? image = await pickedFile.pickImage(
-                                  source: ImageSource.gallery,
-                                );
-                                if (image != null) {
-                                  productImage = image;
-                                }
-                              },
-                              title: '갤러리',
-                              icon: Icons.add_photo_alternate,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+                  showUploadMenu(context);
                 },
                 child: Container(
                   color: const Color.fromARGB(255, 205, 239, 255),
@@ -134,6 +114,51 @@ class _AddProductPageState extends State<AddProductPage> {
         height: 90,
         child: bottomButton(),
       ),
+    );
+  }
+
+  Future<dynamic> showUploadMenu(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          margin: EdgeInsets.fromLTRB(20, 18, 20, 34),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              fileUploadButton(
+                uploadFunction: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("아직 준비중..!"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                title: '파일 링크',
+                icon: Icons.link,
+              ),
+              fileUploadButton(
+                uploadFunction: () async {
+                  final ImagePicker pickedFile = ImagePicker();
+                  final XFile? image = await pickedFile.pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (image != null) {
+                    productImage = image;
+                  }
+                  Navigator.pop(context);
+                  setState(() {});
+                  print(image.runtimeType);
+                },
+                title: '갤러리',
+                icon: Icons.add_photo_alternate,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -206,8 +231,8 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   // 이미지 파일 업로드 버튼
-  Widget fileUploudButton({
-    required VoidCallback upLoudFunction,
+  Widget fileUploadButton({
+    required VoidCallback uploadFunction,
     required String title,
     required IconData icon,
   }) {
@@ -215,7 +240,7 @@ class _AddProductPageState extends State<AddProductPage> {
       height: 100,
       width: 120,
       child: ElevatedButton(
-        onPressed: upLoudFunction,
+        onPressed: uploadFunction,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(

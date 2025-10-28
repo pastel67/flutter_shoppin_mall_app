@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
-import 'package:flutter_shoppin_mall_app/pages/home_page.dart';
 
 class PaymentPage extends StatefulWidget {
   final String title;
@@ -27,9 +26,19 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+        centerTitle: true,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+          child: Text(
+            widget.title,
+            style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Divider(color: Colors.blueAccent),
         ),
       ),
       body: Padding(
@@ -37,15 +46,9 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('받는분 성함', style: TextStyle(fontFamily: 'text')),
-            TextField(maxLines: 1, controller: nameController),
-            SizedBox(height: 10),
-            Text('배송지 입력', style: TextStyle(fontFamily: 'text')),
-            TextField(controller: addressController),
-            SizedBox(height: 10),
-            Text('배달 요청 사항', style: TextStyle(fontFamily: 'text')),
-            TextField(controller: requestController),
-
+            inputText('받는분 성함'),
+            inputText('배송지 입력'),
+            inputText('배달 요청 사항'),
             // 장바구니에 담긴거 가져와서 보여주기
             Expanded(
               child: SingleChildScrollView(
@@ -173,18 +176,16 @@ class _PaymentPageState extends State<PaymentPage> {
                         style: TextStyle(fontFamily: 'text'),
                       ),
                       content: Text(
-                        '타닥을 이용해 주셔서 감사합니다.',
+                        '타닥샵을 이용해 주셔서 감사합니다.',
                         style: TextStyle(fontSize: 15, fontFamily: 'text'),
                       ),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(); // 팝업 닫기
-                            Navigator.push(
+                            Navigator.popUntil(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => ShoppingHomePage(),
-                              ),
+                              (route) => route.isFirst,
                             );
                           },
                           child: Text(
@@ -220,6 +221,26 @@ class _PaymentPageState extends State<PaymentPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Column inputText(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: TextStyle(fontFamily: 'text')),
+        TextField(
+          maxLines: 1,
+          controller: nameController,
+          cursorColor: const Color.fromARGB(255, 0, 54, 73),
+          decoration: InputDecoration(
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.lightBlue),
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }
