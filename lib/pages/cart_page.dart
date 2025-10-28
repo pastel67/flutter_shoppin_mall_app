@@ -49,7 +49,7 @@ class _CartPageState extends State<CartPage> {
       bottomSheet: Container(
         width: double.infinity,
         height: 150,
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(18),
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +77,7 @@ class _CartPageState extends State<CartPage> {
                         context,
                         MaterialPageRoute(
                           builder: (contaxt) => PaymentPage(
-                            totalPrice: cartItemCount(),
+                            totalPrice: calculatTotalPrice(),
                             selectedItems: selectedItems,
                           ),
                         ),
@@ -102,7 +102,11 @@ class _CartPageState extends State<CartPage> {
   }
 
   ListView cartList() {
+    final double bottomHeight = 120;
     return ListView.builder(
+      padding: EdgeInsets.only(
+        bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
+      ),
       itemCount: widget.cartList.length,
       itemBuilder: (context, index) {
         final cartItem = widget.cartList[index];
@@ -178,7 +182,11 @@ class _CartPageState extends State<CartPage> {
                       SizedBox(
                         width: 50,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              widget.cartList.removeAt(index);
+                            });
+                          },
                           child: Text('삭제', style: TextStyle(fontSize: 12)),
                         ),
                       ),

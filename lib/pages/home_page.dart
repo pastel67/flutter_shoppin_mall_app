@@ -17,7 +17,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
-  
 
   void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
@@ -75,7 +74,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
     productList.add(
       ProductEntity(
-        image: '이미지',
+        image: 'assets/기본키보드.webp',
         name: '가죽 핸드백',
         descriptiuon: '고급스러운 가죽 소재의 여성 핸드백',
         price: 45000,
@@ -83,7 +82,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
     productList.add(
       ProductEntity(
-        image: '신발',
+        image: 'assets/기본키보드.webp',
         name: '러닝화',
         descriptiuon: '편안한 착용감의 운동화',
         price: 69000,
@@ -92,7 +91,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
     productList.add(
       ProductEntity(
-        image: '신발',
+        image: 'assets/기본키보드.webp',
         name: '러닝화',
         descriptiuon: '편안한 착용감의 운동화',
         price: 69000,
@@ -101,7 +100,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
     productList.add(
       ProductEntity(
-        image: '시계',
+        image: 'assets/기본키보드.webp',
         name: '시계',
         descriptiuon: '깔끔한 디자인의 손목시계',
         price: 120000,
@@ -110,7 +109,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     );
     productList.add(
       ProductEntity(
-        image: '시계',
+        image: 'assets/기본키보드.webp',
         name: '시계',
         descriptiuon: '깔끔한 디자인의 손목시계',
         price: 120000,
