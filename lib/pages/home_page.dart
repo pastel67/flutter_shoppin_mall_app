@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ShoppingHomePage extends StatefulWidget {
   const ShoppingHomePage({super.key});
@@ -24,132 +27,132 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
-  // void addProductInCart (){
-  //   cartList.add()
+  // 상품 추가시 데이터를 가져오는 함수
+  void getNewProductData(
+    var image,
+    String name,
+    int prise,
+    String descriptiuon,
+  ) {
+    setState(() {
+      productList.add(
+        ProductEntity(
+          image: image,
+          name: name,
+          descriptiuon: descriptiuon,
+          price: prise,
+        ),
+      );
+    });
+  }
+
+  // void addProductInCart() {
+  //    cartList.add()
   // }
 
-  // 상품 추가시 데이터를 가져오는 함수
-  void getNewProductData({
-    required String newImage,
-    required final String newName,
-    required final String newDescriptiuon,
-    required final int newPrice,
-    required bool newFavorite,
-  }) {
-    productList.add(
-      ProductEntity(
-        image: newImage,
-        name: newName,
-        descriptiuon: newDescriptiuon,
-        price: newPrice,
-        favorite: newFavorite,
-      ),
-    );
-  }
-
   //더미 데이터 추가
-  @override
-  void initState() {
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '기본 키보드',
-        price: 80000,
-        favorite: false,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 160000,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/적축키보드.webp',
-        name: '적축 키보드',
-        price: 100000,
-        favorite: false,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '가죽 핸드백',
-        descriptiuon: '고급스러운 가죽 소재의 여성 핸드백',
-        price: 45000,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '러닝화',
-        descriptiuon: '편안한 착용감의 운동화',
-        price: 69000,
-        favorite: true,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '러닝화',
-        descriptiuon: '편안한 착용감의 운동화',
-        price: 69000,
-        favorite: true,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '시계',
-        descriptiuon: '깔끔한 디자인의 손목시계',
-        price: 120000,
-        favorite: false,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '시계',
-        descriptiuon: '깔끔한 디자인의 손목시계',
-        price: 120000,
-        favorite: false,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 160000,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 160000,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
+  // @override
+  // void initState() {
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '기본 키보드',
+  //       price: 80000,
+  //       favorite: false,
+  //       descriptiuon:
+  //           '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/단청키보드.webp',
+  //       name: '단청 키보드',
+  //       price: 160000,
+  //       favorite: true,
+  //       descriptiuon:
+  //           '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/적축키보드.webp',
+  //       name: '적축 키보드',
+  //       price: 100000,
+  //       favorite: false,
+  //       descriptiuon:
+  //           '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '가죽 핸드백',
+  //       descriptiuon: '고급스러운 가죽 소재의 여성 핸드백',
+  //       price: 45000,
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '러닝화',
+  //       descriptiuon: '편안한 착용감의 운동화',
+  //       price: 69000,
+  //       favorite: true,
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '러닝화',
+  //       descriptiuon: '편안한 착용감의 운동화',
+  //       price: 69000,
+  //       favorite: true,
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '시계',
+  //       descriptiuon: '깔끔한 디자인의 손목시계',
+  //       price: 120000,
+  //       favorite: false,
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/기본키보드.webp',
+  //       name: '시계',
+  //       descriptiuon: '깔끔한 디자인의 손목시계',
+  //       price: 120000,
+  //       favorite: false,
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/단청키보드.webp',
+  //       name: '단청 키보드',
+  //       price: 160000,
+  //       favorite: true,
+  //       descriptiuon:
+  //           '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+  //     ),
+  //   );
+  //   productList.add(
+  //     ProductEntity(
+  //       image: 'assets/단청키보드.webp',
+  //       name: '단청 키보드',
+  //       price: 160000,
+  //       favorite: true,
+  //       descriptiuon:
+  //           '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+  //     ),
+  //   );
 
-    for (int i = 0; i < productList.length; i++) {
-      cartList.add(CartItem(product: productList[i]));
-    }
-    super.initState();
-  }
+  //   for (int i = 0; i < productList.length; i++) {
+  //     cartList.add(CartItem(product: productList[i]));
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +193,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(title: title),
+                    builder: (context) => AddProductPage(
+                      title: title,
+                      nawProduct: getNewProductData,
+                    ),
                   ),
                 );
               },
@@ -273,7 +279,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   SizedBox(
                     height: 110,
                     width: 110,
-                    child: Image.asset(productList[index].image),
+                    child: productList[index].image.startsWith('assets/')
+                        ? Image.asset(productList[index].image)
+                        : Image.file(File(productList[index].image)),
                   ),
                   SizedBox(width: 10),
                   Expanded(
