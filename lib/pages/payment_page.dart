@@ -38,7 +38,7 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.blueAccent),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
       body: Padding(
