@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddProductPage extends StatelessWidget {
-  AddProductPage(this.title);
+  AddProductPage({required this.title});
 
   final String title;
 

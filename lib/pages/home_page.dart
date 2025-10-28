@@ -17,7 +17,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
-  
 
   void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
@@ -163,7 +162,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(title),
+                    builder: (context) => AddProductPage(title: title),
                   ),
                 );
               },
