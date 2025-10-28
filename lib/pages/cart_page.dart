@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
 //도와줘요 준호맨~ 살려줘요 준호맨~
 
 class CartPage extends StatefulWidget {
-  final title;
-  List<CartItem> cartList;
-  List<ProductEntity> productList;
+  final String title;
+  final List<CartItem> cartList;
 
-  CartPage({
-    required this.title,
-    required this.cartList,
-    required this.productList,
-  });
+  CartPage({required this.title, required this.cartList});
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -23,17 +17,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   int totalPrice = 0;
 
-  @override
-  void initState() {
-    for (CartItem price in widget.cartList) {
-      if (price.isSelected) {
-        totalPrice += price.finalPrice();
-      }
-    }
-    super.initState();
-  }
-
-  void CalculatTotalPrice() {
+  int calculatTotalPrice() {
     int changedPrice = 0;
     List<CartItem> finalPriceList = widget.cartList
         .where((selected) => selected.isSelected)
@@ -41,7 +25,7 @@ class _CartPageState extends State<CartPage> {
     for (CartItem price in finalPriceList) {
       changedPrice += price.finalPrice();
     }
-    totalPrice = changedPrice;
+    return changedPrice;
   }
 
   int cartItemCount() {
@@ -51,7 +35,6 @@ class _CartPageState extends State<CartPage> {
       if (count.isSelected) {
         totalItemCount++;
       }
-      ;
     }
     return totalItemCount;
   }
@@ -62,112 +45,7 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(title: Text(widget.title)),
       body: widget.cartList.isEmpty
           ? Center(child: Text('장바구니가 비어 있습니다.'))
-          : ListView.builder(
-              itemCount: widget.cartList.length,
-              itemBuilder: (context, index) {
-                final cartItem = widget.cartList[index];
-                final productData = widget.cartList[index].product;
-                // 장바구니 카드 꾸미기
-                return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        value: cartItem.isSelected,
-                        onChanged: (value) {
-                          setState(() {
-                            widget.cartList[index].isSelected = value!;
-                            if (value) {
-                              totalPrice += cartItem.finalPrice();
-                            } else if (!value) {
-                              totalPrice -= cartItem.finalPrice();
-                            }
-                          });
-                        },
-                        activeColor: Colors.lightBlue,
-                      ),
-                      SizedBox(
-                        width: 70,
-                        height: 110,
-                        child: Image.asset(productData.image),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 20),
-                            Text(
-                              cartItem.product.name,
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(height: 20),
-                            //수량 체크 바꿀수 있게
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.remove_circle_outline),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (cartItem.quantity > 1) {
-                                        cartItem.quantity--;
-                                      }
-                                    });
-                                    CalculatTotalPrice();
-                                    cartItem.quantity = cartItem.quantity;
-                                  },
-                                ),
-                                Text('${cartItem.quantity}'),
-                                IconButton(
-                                  icon: Icon(Icons.add_circle_outline),
-                                  onPressed: () {
-                                    setState(() {
-                                      cartItem.quantity++;
-                                      cartItem.quantity = cartItem.quantity;
-                                      CalculatTotalPrice();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 30),
-                      Padding(
-                        padding: const EdgeInsets.all(.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    '삭제',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(height: 20),
-                            Text(
-                              '가격 ${cartItem.finalPrice()}원',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            SizedBox(height: 10),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                    ],
-                  ),
-                );
-              },
-            ),
+          : cartList(),
       bottomSheet: Container(
         width: double.infinity,
         height: 150,
@@ -182,14 +60,14 @@ class _CartPageState extends State<CartPage> {
                 Text('총 결제예상 금액  ', style: TextStyle(fontSize: 15)),
                 Spacer(),
                 Text(
-                  '$totalPrice원',
+                  '${calculatTotalPrice()}원',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
 
             FilledButton(
-              onPressed: totalPrice == 0
+              onPressed: calculatTotalPrice() == 0
                   ? null
                   : () {
                       final selectedItems = widget.cartList
@@ -199,16 +77,12 @@ class _CartPageState extends State<CartPage> {
                         context,
                         MaterialPageRoute(
                           builder: (contaxt) => PaymentPage(
-                            totalPrice: totalPrice,
+                            totalPrice: cartItemCount(),
                             selectedItems: selectedItems,
                           ),
                         ),
                       );
                     },
-              child: Text(
-                '${cartItemCount()}개 결제하기',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.lightBlue,
                 fixedSize: Size(500, 60),
@@ -216,10 +90,113 @@ class _CartPageState extends State<CartPage> {
                   borderRadius: BorderRadiusGeometry.circular(5),
                 ),
               ),
+              child: Text(
+                '${cartItemCount()}개 결제하기',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  ListView cartList() {
+    return ListView.builder(
+      itemCount: widget.cartList.length,
+      itemBuilder: (context, index) {
+        final cartItem = widget.cartList[index];
+        final productData = widget.cartList[index].product;
+        // 장바구니 카드 꾸미기
+        return Card(
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Checkbox(
+                value: cartItem.isSelected,
+                onChanged: (value) {
+                  setState(() {
+                    widget.cartList[index].isSelected = value!;
+                  });
+                },
+                activeColor: Colors.lightBlue,
+              ),
+              SizedBox(
+                width: 80,
+                height: 80,
+                child: Image.asset(productData.image),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 20),
+                    Text(productData.name, style: TextStyle(fontSize: 16)),
+                    SizedBox(height: 20),
+                    //수량 체크 바꿀수 있게
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove_circle_outline),
+                          onPressed: () {
+                            setState(() {
+                              if (cartItem.quantity > 1) {
+                                cartItem.quantity--;
+                              }
+                            });
+                            calculatTotalPrice();
+                            cartItem.quantity = cartItem.quantity;
+                          },
+                        ),
+                        Text('${cartItem.quantity}'),
+                        IconButton(
+                          icon: Icon(Icons.add_circle_outline),
+                          onPressed: () {
+                            setState(() {
+                              cartItem.quantity++;
+                              cartItem.quantity = cartItem.quantity;
+                              calculatTotalPrice();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(.0),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text('삭제', style: TextStyle(fontSize: 12)),
+                        ),
+                      ),
+
+                      SizedBox(height: 20),
+                      Text(
+                        '가격 ${cartItem.finalPrice()}원',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
