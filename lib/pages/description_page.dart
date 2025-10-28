@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
-class DescriptionPage extends StatelessWidget {
+class DescriptionPage extends StatefulWidget {
   final String title;
   final ProductEntity productData;
+  VoidCallback onToggleFavorite;
 
-  DescriptionPage({required this.title, required this.productData});
+  DescriptionPage({
+    required this.title,
+    required this.productData,
+    required this.onToggleFavorite,
+  });
 
+  @override
+  State<DescriptionPage> createState() => _DescriptionPageState();
+}
+
+class _DescriptionPageState extends State<DescriptionPage> {
   @override
   Widget build(BuildContext context) {
     CartItem addCartProduct;
@@ -20,7 +30,7 @@ class DescriptionPage extends StatelessWidget {
             Navigator.popUntil(context, (route) => route.isFirst);
           },
           child: Text(
-            title,
+            widget.title,
             style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
           ),
         ),
@@ -46,7 +56,7 @@ class DescriptionPage extends StatelessWidget {
                             child: AlertDialog(
                               content: Expanded(
                                 child: Image.asset(
-                                  productData.image,
+                                  widget.productData.image,
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -58,7 +68,7 @@ class DescriptionPage extends StatelessWidget {
                     child: SizedBox(
                       width: 200,
                       height: 200,
-                      child: Image.asset(productData.image),
+                      child: Image.asset(widget.productData.image),
                     ),
                   ),
                   //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
@@ -84,19 +94,31 @@ class DescriptionPage extends StatelessWidget {
                                 Icon(Icons.star, color: Colors.amber, size: 25),
                                 Spacer(),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 25,
-                                  ),
+                                  onPressed: () {
+                                    print(
+                                      '2 -1 ${widget.productData.favorite}',
+                                    );
+                                    setState(() {
+                                      widget.onToggleFavorite();
+                                    });
+                                    print(
+                                      '2 -2 ${widget.productData.favorite}',
+                                    );
+                                  },
+                                  icon: widget.productData.favorite
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                          size: 25,
+                                        )
+                                      : Icon(Icons.favorite_border),
                                 ),
                               ],
                             ),
                           ),
                           SizedBox(height: 10),
                           Text(
-                            productData.name,
+                            widget.productData.name,
                             style: TextStyle(
                               fontFamily: 'text',
                               fontWeight: FontWeight.bold,
@@ -126,7 +148,7 @@ class DescriptionPage extends StatelessWidget {
                             children: [
                               Spacer(flex: 10),
                               Text(
-                                '${productData.price}원',
+                                '${widget.productData.price}원',
                                 style: TextStyle(
                                   fontFamily: 'text',
                                   fontSize: 17,
@@ -219,7 +241,7 @@ class DescriptionPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                '${productData.descriptiuon}',
+                widget.productData.descriptiuon,
                 style: TextStyle(fontFamily: 'text'),
               ),
             ],
