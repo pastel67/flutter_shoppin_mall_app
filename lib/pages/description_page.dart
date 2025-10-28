@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
 class DescriptionPage extends StatelessWidget {
@@ -9,6 +10,8 @@ class DescriptionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartItem addCartProduct;
+
     return Scaffold(
       appBar: AppBar(title: Text(title, style: TextStyle())),
       body: Padding(
@@ -18,22 +21,41 @@ class DescriptionPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
-                    width: 150,
-                    height: 200,
-                    decoration: BoxDecoration(color: Colors.amber),
-                    child: Image.asset(productData.image),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: AlertDialog(
+                              content: SizedBox(
+                                height: 300,
+                                width: 350,
+                                child: Expanded(
+                                  child: Image.asset(productData.image),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 150,
+                      height: 200,
+                      child: Image.asset(productData.image),
+                    ),
                   ),
                   //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: SizedBox(
                       width: 200,
-                      height: 200,
+                      height: 150,
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 13),
+                          Expanded(
                             child: Row(
                               children: [
                                 Text('리뷰(240)', style: TextStyle(fontSize: 10)),
@@ -51,9 +73,41 @@ class DescriptionPage extends StatelessWidget {
                             ),
                           ),
                           Text(productData.name),
-                          Text('${productData.price}'),
+                          Row(
+                            children: [
+                              Spacer(flex: 7),
+                              Text('${productData.price}'),
+                              Spacer(flex: 1),
+                            ],
+                          ),
                           Spacer(),
-                          Text("수량체크 및 가격 변동"),
+                          Row(
+                            children: [
+                              // IconButton(
+                              //   icon: Icon(Icons.remove_circle_outline),
+                              //   onPressed: () {
+                              //     setState(() {
+                              //       if (cartItem.quantity > 1) {
+                              //         cartItem.quantity--;
+                              //       }
+                              //     });
+                              //     calculatTotalPrice();
+                              //     cartItem.quantity = cartItem.quantity;
+                              //   },
+                              // ),
+                              // Text('${cartItem.quantity}'),
+                              // IconButton(
+                              //   icon: Icon(Icons.add_circle_outline),
+                              //   onPressed: () {
+                              //     setState(() {
+                              //       cartItem.quantity++;
+                              //       cartItem.quantity = cartItem.quantity;
+                              //       calculatTotalPrice();
+                              //     });
+                              //   },
+                              // ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -107,9 +161,7 @@ class DescriptionPage extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {
-                
-              },
+              onPressed: () {},
               icon: Icon(Icons.shopping_cart, size: 30),
             ),
             SizedBox(width: 20),
