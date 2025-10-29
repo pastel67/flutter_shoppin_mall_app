@@ -4,6 +4,7 @@ import 'package:flutter_shoppin_mall_app/dummy_data.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
+import 'package:flutter_shoppin_mall_app/pages/favotie_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
 
 class ShoppingHomePage extends StatefulWidget {
@@ -162,9 +163,29 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 40)),
+            IconButton(onPressed: () {
+
+            }, icon: Icon(Icons.home, size: 40)),
             Spacer(),
-            IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 40)),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (Route) => FavotiePage(
+                      cartList: cartList,
+                      title: title,
+                      productList: productList,
+                      onToggleFavorite: onToggleFavorite,
+                      resetProductSelected: resetProductSelected,
+                      deleteProduct: deleteProduct,
+                      getNewProductData: getNewProductData,
+                    ),
+                  ),
+                );
+              },
+              icon: Icon(Icons.list_alt, size: 40),
+            ),
             Spacer(flex: 5),
             IconButton(
               onPressed: () {
