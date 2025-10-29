@@ -280,8 +280,73 @@ class _DescriptionPageState extends State<DescriptionPage> {
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        widget.productData.name,
+                        style: TextStyle(
+                          fontFamily: 'text',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.favorite_border,
+                            color: widget.productData.favorite
+                                ? Colors.red
+                                : Colors.lightBlueAccent,
+                            size: 10,
+                          ),
+                          Text(
+                            widget.productData.favorite
+                                ? '174명이 찜한 상품입니다.'
+                                : '173명이 찜한 상품입니다.',
+                            style: TextStyle(fontSize: 10, fontFamily: 'text'),
+                          ),
+                        ],
+                      ),
+
+                      Spacer(),
+                      Row(
+                        children: [
+                          Spacer(flex: 10),
+                          Text(
+                            '${widget.productData.price}원',
+                            style: TextStyle(fontFamily: 'text', fontSize: 17),
+                          ),
+                          Spacer(flex: 1),
+                        ],
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.indeterminate_check_box),
+                            onPressed: () {
+                              setState(() {
+                                if (productQuantity > 1) {
+                                  productQuantity--;
+                                  print(productQuantity);
+                                }
+                              });
+                            },
+                          ),
+                          Text('${productQuantity}'),
+                          IconButton(
+                            icon: Icon(Icons.add_box),
+                            onPressed: () {
+                              setState(() {
+                                productQuantity++;
+                                print(productQuantity);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -335,13 +400,12 @@ class _DescriptionPageState extends State<DescriptionPage> {
               ],
             ),
 
-            SizedBox(height: 20),
-            Text(
-              widget.productData.description,
-              style: TextStyle(fontFamily: 'text'),
-            ),
-          ],
-        ),
+          SizedBox(height: 20),
+          Text(
+            widget.productData.description,
+            style: TextStyle(fontFamily: 'text', fontSize: 17),
+          ),
+        ],
       ),
     );
   }
