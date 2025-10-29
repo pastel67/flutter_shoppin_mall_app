@@ -8,8 +8,12 @@ import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
 class CartPage extends StatefulWidget {
   final String title;
   final List<CartItem> cartList;
+  final void Function(List<CartItem> changedCartList) resetProductSelected;
 
-  CartPage({required this.title, required this.cartList});
+  CartPage({required this.title, 
+  required this.cartList,
+  required this.resetProductSelected,
+  });
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -42,111 +46,116 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white,
-                const Color.fromARGB(255, 229, 247, 255),
-                const Color.fromARGB(255, 185, 232, 255),
-              ],
-            ),
-          ),
-        ),
-        centerTitle: true,
-        title: GestureDetector(
-          onTap: () {
-            Navigator.popUntil(context, (route) => route.isFirst);
-          },
-          child: Text(
-            widget.title,
-            style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
-          ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
-        ),
-      ),
-      body: widget.cartList.isEmpty
-          ? Container(
-              height: 550,
-              child: Center(
-                child: Text(
-                  '장바구니가 비어 있습니다.',
-                  style: TextStyle(
-                    fontFamily: 'text',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        widget.resetProductSelected(widget.cartList);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white,
+                  const Color.fromARGB(255, 229, 247, 255),
+                  const Color.fromARGB(255, 185, 232, 255),
+                ],
               ),
-            )
-          : cartList(),
-      bottomSheet: Container(
-        width: double.infinity,
-        height: 150,
-        padding: EdgeInsets.all(18),
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                SizedBox(width: 10),
-                Text(
-                  '총 결제예상 금액  ',
-                  style: TextStyle(fontSize: 15, fontFamily: 'text'),
-                ),
-                Spacer(),
-                Text(
-                  '${calculatTotalPrice()}원',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'text',
+            ),
+          ),
+          centerTitle: true,
+          title: GestureDetector(
+            onTap: () {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            },
+            child: Text(
+              widget.title,
+              style: TextStyle(fontFamily: 'keyboard', fontSize: 30),
+            ),
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(1.0),
+            child: Divider(color: Colors.lightBlueAccent, thickness: 5),
+          ),
+        ),
+        body: widget.cartList.isEmpty
+            ? Container(
+                height: 550,
+                child: Center(
+                  child: Text(
+                    '장바구니가 비어 있습니다.',
+                    style: TextStyle(
+                      fontFamily: 'text',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
-              ],
-            ),
-
-            FilledButton(
-              onPressed: calculatTotalPrice() == 0
-                  ? null
-                  : () {
-                      final selectedItems = widget.cartList
-                          .where((item) => item.isSelected)
-                          .toList();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (contaxt) => PaymentPage(
-                            title: widget.title,
-                            totalPrice: calculatTotalPrice(),
-                            selectedItems: selectedItems,
+              )
+            : cartList(),
+        bottomSheet: Container(
+          width: double.infinity,
+          height: 150,
+          padding: EdgeInsets.all(18),
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SizedBox(width: 10),
+                  Text(
+                    '총 결제예상 금액  ',
+                    style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                  ),
+                  Spacer(),
+                  Text(
+                    '${calculatTotalPrice()}원',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'text',
+                    ),
+                  ),
+                ],
+              ),
+      
+              FilledButton(
+                onPressed: calculatTotalPrice() == 0
+                    ? null
+                    : () {
+                        final selectedItems = widget.cartList
+                            .where((item) => item.isSelected)
+                            .toList();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contaxt) => PaymentPage(
+                              title: widget.title,
+                              totalPrice: calculatTotalPrice(),
+                              selectedItems: selectedItems,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.lightBlue,
-                fixedSize: Size(500, 60),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(5),
+                        );
+                      },
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.lightBlue,
+                  fixedSize: Size(500, 60),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(5),
+                  ),
+                ),
+                child: Text(
+                  '${cartItemCount()}개 결제하기',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'text',
+                  ),
                 ),
               ),
-              child: Text(
-                '${cartItemCount()}개 결제하기',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  fontFamily: 'text',
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

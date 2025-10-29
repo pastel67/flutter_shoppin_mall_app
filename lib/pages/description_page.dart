@@ -11,6 +11,7 @@ class DescriptionPage extends StatefulWidget {
   VoidCallback onToggleFavorite;
   void Function(ProductEntity addCartProduct, bool isSelected, int addQuantity)
   addProductInCart;
+  void Function(List<CartItem> changedCartList) resetProductSelected;
   final List<CartItem> cartList;
 
   DescriptionPage({
@@ -19,6 +20,7 @@ class DescriptionPage extends StatefulWidget {
     required this.onToggleFavorite,
     required this.addProductInCart,
     required this.cartList,
+    required this.resetProductSelected,
   });
 
   @override
@@ -88,7 +90,16 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     showDescriptionDialog(context, "해당 상품을 구매하시겠습니까?", () {
                       isSelected = true;
                       addCart();
-                      Navigator.push(context, MaterialPageRoute(builder: (route) => CartPage(title: widget.title, cartList: widget.cartList,)));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (route) => CartPage(
+                            title: widget.title,
+                            cartList: widget.cartList,
+                            resetProductSelected: widget.resetProductSelected,
+                          ),
+                        ),
+                      );
                     });
                   },
                   style: FilledButton.styleFrom(
