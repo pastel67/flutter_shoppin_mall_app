@@ -52,6 +52,7 @@ class _CartPageState extends State<CartPage> {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         widget.resetProductSelected(widget.cartList);
+        print('페이지 나가기');
       },
       child: Scaffold(
         appBar: AppBar(
@@ -175,8 +176,9 @@ class _CartPageState extends State<CartPage> {
       ),
       itemCount: widget.cartList.length,
       itemBuilder: (context, index) {
-        final cartItem = widget.cartList[index];
-        final productData = widget.cartList[index].product;
+        int reversedIndex = widget.cartList.length - 1 - index;
+        final cartItem = widget.cartList[reversedIndex];
+        final productData = widget.cartList[reversedIndex].product;
         // 장바구니 카드 꾸미기
         return Card(
           shape: RoundedRectangleBorder(
@@ -196,7 +198,7 @@ class _CartPageState extends State<CartPage> {
                 value: cartItem.isSelected,
                 onChanged: (value) {
                   setState(() {
-                    widget.cartList[index].isSelected = value!;
+                    widget.cartList[reversedIndex].isSelected = value!;
                   });
                 },
                 activeColor: Colors.lightBlue,
@@ -269,7 +271,7 @@ class _CartPageState extends State<CartPage> {
                         child: TextButton(
                           onPressed: () {
                             setState(() {
-                              widget.cartList.removeAt(index);
+                              widget.cartList.removeAt(reversedIndex);
                             });
                           },
                           child: Text(
