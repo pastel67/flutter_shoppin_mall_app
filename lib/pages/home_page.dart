@@ -24,9 +24,24 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
-  // void addProductInCart (){
-  //   cartList.add()
-  // }
+  // 상품 추가시 데이터를 가져오는 함수
+  void getNewProductData(
+    String  image,
+    String name,
+    int prise,
+    String descriptiuon,
+  ) {
+    setState(() {
+      productList.add(
+        ProductEntity(
+          image: image,
+          name: name,
+          descriptiuon: descriptiuon,
+          price: prise,
+        ),
+      );
+    });
+  }
 
   // 상품 추가시 데이터를 가져오는 함수
   void getNewProductData({
@@ -218,7 +233,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(title: title),
+                    builder: (context) => AddProductPage(
+                      title: title,
+                      newProduct: getNewProductData,
+                    ),
                   ),
                 );
               },
