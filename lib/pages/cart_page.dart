@@ -197,14 +197,12 @@ class _CartPageState extends State<CartPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 20),
                     Text(
                       productData.name,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 13,
                         fontFamily: 'text',
                         fontWeight: FontWeight.bold,
                       ),
@@ -214,7 +212,7 @@ class _CartPageState extends State<CartPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.indeterminate_check_box),
+                          icon: Icon(Icons.indeterminate_check_box, size: 17),
                           onPressed: () {
                             setState(() {
                               if (cartItem.quantity > 1) {
@@ -227,10 +225,10 @@ class _CartPageState extends State<CartPage> {
                         ),
                         Text(
                           '${cartItem.quantity}',
-                          style: TextStyle(fontFamily: 'text'),
+                          style: TextStyle(fontFamily: 'text', fontSize: 14),
                         ),
                         IconButton(
-                          icon: Icon(Icons.add_box),
+                          icon: Icon(Icons.add_box, size: 17),
                           onPressed: () {
                             setState(() {
                               cartItem.quantity++;
@@ -263,7 +261,7 @@ class _CartPageState extends State<CartPage> {
                           child: Text(
                             '삭제',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                               fontFamily: 'text',
                               color: Colors.red,
                             ),
@@ -274,7 +272,7 @@ class _CartPageState extends State<CartPage> {
                       SizedBox(height: 20),
                       Text(
                         '가격 ${cartItem.finalPrice()}원',
-                        style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                        style: TextStyle(fontSize: 12, fontFamily: 'text'),
                       ),
                       SizedBox(height: 10),
                     ],

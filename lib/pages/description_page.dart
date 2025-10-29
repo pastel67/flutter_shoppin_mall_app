@@ -193,7 +193,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         style: TextStyle(
                           fontFamily: 'text',
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 17,
                         ),
                       ),
                       SizedBox(height: 10),
@@ -310,7 +310,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
           SizedBox(height: 20),
           Text(
             widget.productData.description,
-            style: TextStyle(fontFamily: 'text'),
+            style: TextStyle(fontFamily: 'text', fontSize: 17),
           ),
         ],
       ),
