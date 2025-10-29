@@ -9,10 +9,13 @@ class CartPage extends StatefulWidget {
   final String title;
   final List<CartItem> cartList;
   final void Function(List<CartItem> changedCartList) resetProductSelected;
+  final void Function(List<CartItem> changedCartList) deleteProduct;
 
-  CartPage({required this.title, 
-  required this.cartList,
-  required this.resetProductSelected,
+  CartPage({
+    required this.title,
+    required this.cartList,
+    required this.resetProductSelected,
+    required this.deleteProduct,
   });
 
   @override
@@ -119,7 +122,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ],
               ),
-      
+
               FilledButton(
                 onPressed: calculatTotalPrice() == 0
                     ? null
@@ -131,6 +134,8 @@ class _CartPageState extends State<CartPage> {
                           context,
                           MaterialPageRoute(
                             builder: (contaxt) => PaymentPage(
+                              cartList: widget.cartList,
+                              deleteProduct: widget.deleteProduct,
                               title: widget.title,
                               totalPrice: calculatTotalPrice(),
                               selectedItems: selectedItems,

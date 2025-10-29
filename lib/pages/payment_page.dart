@@ -7,11 +7,15 @@ class PaymentPage extends StatefulWidget {
   final String title;
   final int totalPrice;
   final List<CartItem> selectedItems;
+  final List<CartItem> cartList;
+  final void Function(List<CartItem> changedCartList) deleteProduct;
 
   PaymentPage({
     required this.title,
     required this.totalPrice,
     required this.selectedItems,
+    required this.cartList,
+    required this.deleteProduct,
   });
 
   @override
@@ -27,7 +31,8 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        
+        widget.cartList.removeWhere((item) => item.isSelected);
+        widget.deleteProduct(widget.cartList);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -145,12 +150,18 @@ class _PaymentPageState extends State<PaymentPage> {
                           children: [
                             Text(
                               '총 상품 가격',
-                              style: TextStyle(fontFamily: 'text', fontSize: 20),
+                              style: TextStyle(
+                                fontFamily: 'text',
+                                fontSize: 20,
+                              ),
                             ),
                             Spacer(),
                             Text(
                               '${widget.totalPrice}원',
-                              style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'text',
+                              ),
                             ),
                           ],
                         ),
@@ -159,12 +170,18 @@ class _PaymentPageState extends State<PaymentPage> {
                           children: [
                             Text(
                               '쿠폰 할인비',
-                              style: TextStyle(fontSize: 20, fontFamily: 'text'),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'text',
+                              ),
                             ),
                             Spacer(),
                             Text(
                               '0원',
-                              style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'text',
+                              ),
                             ),
                           ],
                         ),
@@ -173,12 +190,18 @@ class _PaymentPageState extends State<PaymentPage> {
                           children: [
                             Text(
                               '배송비',
-                              style: TextStyle(fontSize: 20, fontFamily: 'text'),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'text',
+                              ),
                             ),
                             Spacer(),
                             Text(
                               '0원',
-                              style: TextStyle(fontSize: 15, fontFamily: 'text'),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'text',
+                              ),
                             ),
                           ],
                         ),

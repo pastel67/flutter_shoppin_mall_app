@@ -12,6 +12,7 @@ class DescriptionPage extends StatefulWidget {
   void Function(ProductEntity addCartProduct, bool isSelected, int addQuantity)
   addProductInCart;
   void Function(List<CartItem> changedCartList) resetProductSelected;
+  void Function(List<CartItem> changedCartList) deleteProduct;
   final List<CartItem> cartList;
 
   DescriptionPage({
@@ -21,6 +22,7 @@ class DescriptionPage extends StatefulWidget {
     required this.addProductInCart,
     required this.cartList,
     required this.resetProductSelected,
+    required this.deleteProduct,
   });
 
   @override
@@ -97,6 +99,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                             title: widget.title,
                             cartList: widget.cartList,
                             resetProductSelected: widget.resetProductSelected,
+                            deleteProduct:widget.deleteProduct
                           ),
                         ),
                       );

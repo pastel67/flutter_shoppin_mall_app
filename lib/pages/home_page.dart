@@ -26,13 +26,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   }
 
   void resetProductSelected(List<CartItem> changedCartList) {
-    for (CartItem item in changedCartList) {
-      if (item.isSelected) {
-        item.isSelected = !item.isSelected;
-      }
-    }
+    cartList = changedCartList;
   }
-  void (List<CartItem> changedCartList) {
+
+  void deleteProduct(List<CartItem> changedCartList) {
     for (CartItem item in changedCartList) {
       if (item.isSelected) {
         item.isSelected = !item.isSelected;
@@ -174,6 +171,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       title: title,
                       cartList: cartList,
                       resetProductSelected: resetProductSelected,
+                      deleteProduct: deleteProduct,
                     ),
                   ),
                 );
@@ -202,6 +200,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   onToggleFavorite: () {
                     onToggleFavorite(productList[index].favorite, index);
                   },
+                  deleteProduct: deleteProduct,
                   addProductInCart: addProductInCart,
                   productData: productList[index],
                   cartList: cartList,
