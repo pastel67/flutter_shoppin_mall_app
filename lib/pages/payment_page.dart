@@ -209,7 +209,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               (item) => item.isSelected,
                             );
                             widget.deleteProduct(widget.cartList);
-                            Navigator.of(context).pop(); // 팝업 닫기
+                            Navigator.of(context).pop(); 
                             Navigator.popUntil(
                               context,
                               (route) => route.isFirst,

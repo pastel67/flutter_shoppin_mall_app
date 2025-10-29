@@ -52,6 +52,7 @@ class _CartPageState extends State<CartPage> {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         widget.resetProductSelected(widget.cartList);
+        print('페이지 나가기');
       },
       child: Scaffold(
         appBar: AppBar(

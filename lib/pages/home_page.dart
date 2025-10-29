@@ -25,16 +25,18 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   }
 
   void resetProductSelected(List<CartItem> changedCartList) {
-    cartList = changedCartList;
-    setState(() {});
-  }
-
-  void deleteProduct(List<CartItem> changedCartList) {
     for (CartItem item in changedCartList) {
       if (item.isSelected) {
         item.isSelected = !item.isSelected;
       }
     }
+    setState(() {});
+    print('리셋');
+  }
+
+  void deleteProduct(List<CartItem> changedCartList) {
+    cartList = changedCartList;
+    print('삭제');
     setState(() {});
   }
 
@@ -55,6 +57,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         ),
       );
     });
+    print('상품추가');
   }
 
   // 장바구니에 상품을 추가 하는 함수
@@ -71,7 +74,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           quantity: addQuantity ?? 1,
         ),
       );
-      print('추가 되는 건가111');
+      print('카트 추가');
     });
   }
 
@@ -180,7 +183,24 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               icon: Icon(Icons.shopping_cart, size: 40),
             ),
             Spacer(),
-            IconButton(onPressed: () {}, icon: Icon(Icons.settings, size: 40)),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Center(
+                        child: Text(
+                          "로그인 해주세요",
+                          style: TextStyle(fontSize: 20, fontFamily: 'text'),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.person, size: 40),
+            ),
           ],
         ),
       ),
