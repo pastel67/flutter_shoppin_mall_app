@@ -186,6 +186,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   },
                   addProductInCart: addProductInCart,
                   productData: productList[index],
+                  cartList: cartList,
                 ),
               ),
             );
