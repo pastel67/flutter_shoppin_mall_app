@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ShoppingHomePage extends StatefulWidget {
   const ShoppingHomePage({super.key});
@@ -23,47 +20,34 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
-      print('1 - 1 ${productList[index].favorite}');
-      productList[index].favorite = !toggleFavorite;
-      print('1 - 2 ${productList[index].favorite}');
+      productList[index].favorite = toggleFavorite;
     });
   }
+
+  // void addProductInCart (){
+  //   cartList.add()
+  // }
 
   // 상품 추가시 데이터를 가져오는 함수
-  void getNewProductData(
-    var image,
-    String name,
-    int prise,
-    String descriptiuon,
-  ) {
-    setState(() {
-      productList.add(
-        ProductEntity(
-          image: image,
-          name: name,
-          descriptiuon: descriptiuon,
-          price: prise,
-        ),
-      );
-    });
-  }
-
-  // 장바구니에 상품을 추가 하는 함수
-  void addProductInCart(
-    ProductEntity addCartProduct,
-    bool addCartisSelected,
-    int addCartquantity,
-  ) {
-    cartList.add(
-      CartItem(
-        product: addCartProduct,
-        isSelected: addCartisSelected,
-        quantity: addCartquantity,
+  void getNewProductData({
+    required String newImage,
+    required final String newName,
+    required final String newDescriptiuon,
+    required final int newPrice,
+    required bool newFavorite,
+  }) {
+    productList.add(
+      ProductEntity(
+        image: newImage,
+        name: newName,
+        descriptiuon: newDescriptiuon,
+        price: newPrice,
+        favorite: newFavorite,
       ),
     );
   }
 
-  // 더미 데이터 추가
+  //더미 데이터 추가
   @override
   void initState() {
     productList.add(
@@ -161,9 +145,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       ),
     );
 
-    // for (int i = 0; i < productList.length; i++) {
-    //   cartList.add(CartItem(product: productList[i]));
-    // }
+    for (int i = 0; i < productList.length; i++) {
+      cartList.add(CartItem(product: productList[i]));
+    }
     super.initState();
   }
 
@@ -186,11 +170,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           ? Center(
               child: Text(
                 "등록된 상품이 없습니다.",
-                style: TextStyle(
-                  fontFamily: 'text',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),
+                style: TextStyle(fontFamily: 'text'),
               ),
             )
           : productListView(title: title),
@@ -210,10 +190,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(
-                      title: title,
-                      nawProduct: getNewProductData,
-                    ),
+                    builder: (context) => AddProductPage(title: title),
                   ),
                 );
               },
@@ -272,9 +249,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
                   title: title,
-                  onToggleFavorite: () {
-                    onToggleFavorite(productList[index].favorite, index);
-                  },
+
                   productData: productList[index],
                 ),
               ),
@@ -298,9 +273,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   SizedBox(
                     height: 110,
                     width: 110,
-                    child: productList[index].image.startsWith('assets/')
-                        ? Image.asset(productList[index].image)
-                        : Image.file(File(productList[index].image)),
+                    child: Image.asset(productList[index].image),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -331,6 +304,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
+                          productList[index].favorite =
+                              !productList[index].favorite;
                           onToggleFavorite(productList[index].favorite, index);
                         },
                         icon: productList[index].favorite
