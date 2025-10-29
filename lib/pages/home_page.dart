@@ -29,7 +29,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   // 상품 추가시 데이터를 가져오는 함수
   void getNewProductData(
-    var image,
+    String  image,
     String name,
     int prise,
     String descriptiuon,
@@ -225,7 +225,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   MaterialPageRoute(
                     builder: (context) => AddProductPage(
                       title: title,
-                      nawProduct: getNewProductData,
+                      newProduct: getNewProductData,
                     ),
                   ),
                 );

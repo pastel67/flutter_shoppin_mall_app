@@ -5,11 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductPage extends StatefulWidget {
-  AddProductPage({required this.title, required this.nawProduct});
+  AddProductPage({required this.title, required this.newProduct});
 
   final String title;
   void Function(String image, String name, int prise, String descriptiuon)
-  nawProduct;
+  newProduct;
 
   @override
   State<AddProductPage> createState() => _AddProductPageState();
@@ -232,7 +232,7 @@ class _AddProductPageState extends State<AddProductPage> {
             ),
             onPressed: isIncluded()
                 ? () {
-                    widget.nawProduct(
+                    widget.newProduct(
                       productImage!.path,
                       productNameController.text,
                       productPrice,
