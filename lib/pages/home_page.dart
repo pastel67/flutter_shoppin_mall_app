@@ -27,6 +27,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   void resetProductSelected(List<CartItem> changedCartList) {
     cartList = changedCartList;
+    setState((){});
   }
 
   void deleteProduct(List<CartItem> changedCartList) {
@@ -35,6 +36,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         item.isSelected = !item.isSelected;
       }
     }
+    setState((){});
   }
 
   // 상품 추가시 데이터를 가져오는 함수
@@ -188,7 +190,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   // 상품 리스트
   Widget productListView({required String title}) {
-    List<ProductEntity> reversedProductList = productList.reversed.toList();
 
     return ListView.builder(
       reverse: true,
