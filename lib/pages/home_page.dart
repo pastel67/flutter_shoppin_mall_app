@@ -19,9 +19,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
 
-  void onToggleFavorite(bool toggleFavorite, int index) {
+  void onToggleFavorite(bool toggleFavorite, int reversedIndex) {
     setState(() {
-      productList[index].favorite = !toggleFavorite;
+      productList[reversedIndex].favorite = !toggleFavorite;
     });
   }
 
@@ -77,7 +77,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   //더미 데이터 추가
   @override
   void initState() {
-    
     DummyData(cartList: cartList, productList: productList).addDummyData();
     super.initState();
   }
@@ -189,7 +188,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   // 상품 리스트
   Widget productListView({required String title}) {
+    List<ProductEntity> reversedProductList = productList.reversed.toList();
+
     return ListView.builder(
+      reverse: true,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {

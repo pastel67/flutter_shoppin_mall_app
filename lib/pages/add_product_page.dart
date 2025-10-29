@@ -8,7 +8,7 @@ class AddProductPage extends StatefulWidget {
   AddProductPage({required this.title, required this.newProduct});
 
   final String title;
-  void Function(String image, String name, int prise, String descriptiuon)
+  final void Function(String image, String name, int prise, String descriptiuon)
   newProduct;
 
   @override
@@ -191,26 +191,23 @@ class _AddProductPageState extends State<AddProductPage> {
         Text(title, style: TextStyle(fontFamily: 'text')),
         SizedBox(width: 10),
         Expanded(
-          child: Container(
-            child: TextField(
-              onChanged: (value) {
-                isParsing ? productPrice = int.tryParse(value) ?? 0 : null;
-                print(controller.text);
-              },
-              inputFormatters: isParsing
-                  ? [FilteringTextInputFormatter.digitsOnly]
-                  : null,
-              controller: controller,
-              cursorColor: const Color.fromARGB(255, 0, 54, 73),
-              style: TextStyle(fontFamily: 'text', fontWeight: FontWeight.bold),
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.lightBlue),
-                ),
-                contentPadding: EdgeInsets.only(left: 5),
+          child: TextField(
+            onChanged: (value) {
+              isParsing ? productPrice = int.tryParse(value) ?? 0 : null;
+            },
+            inputFormatters: isParsing
+                ? [FilteringTextInputFormatter.digitsOnly]
+                : null,
+            controller: controller,
+            cursorColor: const Color.fromARGB(255, 0, 54, 73),
+            style: TextStyle(fontFamily: 'text', fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.lightBlue),
               ),
-              maxLines: 1,
+              contentPadding: EdgeInsets.only(left: 5),
             ),
+            maxLines: 1,
           ),
         ),
       ],
@@ -222,7 +219,7 @@ class _AddProductPageState extends State<AddProductPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 390,
           height: 50,
           child: ElevatedButton(
