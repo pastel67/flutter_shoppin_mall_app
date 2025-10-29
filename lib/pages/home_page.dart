@@ -25,6 +25,18 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
+  void resetProductSelected(List<CartItem> changedCartList) {
+    cartList = changedCartList;
+  }
+
+  void deleteProduct(List<CartItem> changedCartList) {
+    for (CartItem item in changedCartList) {
+      if (item.isSelected) {
+        item.isSelected = !item.isSelected;
+      }
+    }
+  }
+
   // 상품 추가시 데이터를 가져오는 함수
   void getNewProductData(
     String image,
@@ -243,8 +255,12 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        CartPage(title: title, cartList: cartList),
+                    builder: (context) => CartPage(
+                      title: title,
+                      cartList: cartList,
+                      resetProductSelected: resetProductSelected,
+                      deleteProduct: deleteProduct,
+                    ),
                   ),
                 );
               },
@@ -272,8 +288,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   onToggleFavorite: () {
                     onToggleFavorite(productList[index].favorite, index);
                   },
+                  deleteProduct: deleteProduct,
                   addProductInCart: addProductInCart,
                   productData: productList[index],
+                  cartList: cartList,
+                  resetProductSelected: resetProductSelected,
                 ),
               ),
             );
