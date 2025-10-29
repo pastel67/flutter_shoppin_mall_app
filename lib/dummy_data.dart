@@ -40,7 +40,7 @@ class DummyData {
     );
     productList.add(
       ProductEntity(
-        image: 'assets/기본키보드.webp',
+        image: 'assets/abko.webp',
         name: '가죽 핸드백',
         description: '고급스러운 가죽 소재의 여성 핸드백',
         price: 45000,
@@ -48,7 +48,7 @@ class DummyData {
     );
     productList.add(
       ProductEntity(
-        image: 'assets/기본키보드.webp',
+        image: 'assets/keychron.webp',
         name: '러닝화',
         description: '편안한 착용감의 운동화',
         price: 69000,
