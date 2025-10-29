@@ -166,132 +166,47 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         : Image.file(File(widget.productData.image)),
                   ),
                 ),
-                Spacer(),
-                //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 40,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5.5,
-                                ),
-                                child: Text(
-                                  '리뷰(240)',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'text',
-                                  ),
-                                ),
-                              ),
-                              Icon(Icons.star, color: Colors.amber, size: 25),
-                              Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    widget.onToggleFavorite();
-                                  });
-                                },
-                                icon: widget.productData.favorite
-                                    ? Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                        size: 25,
-                                      )
-                                    : Icon(Icons.favorite_border),
-                              ),
-                            ],
+                const Spacer(),
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Text(
+                            '리뷰(240)',
+                            style: TextStyle(fontSize: 10, fontFamily: 'text'),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          widget.productData.name,
-                          style: TextStyle(
-                            fontFamily: 'text',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                          const Icon(Icons.star, color: Colors.amber, size: 25),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.onToggleFavorite();
+                              });
+                            },
+                            icon: widget.productData.favorite
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 25,
+                                  )
+                                : const Icon(Icons.favorite_border),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.favorite_border,
-                              color: widget.productData.favorite
-                                  ? Colors.red
-                                  : Colors.lightBlueAccent,
-                              size: 10,
-                            ),
-                            Text(
-                              widget.productData.favorite
-                                  ? '174명이 찜한 상품입니다.'
-                                  : '173명이 찜한 상품입니다.',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'text',
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        Spacer(),
-                        Row(
-                          children: [
-                            Spacer(flex: 10),
-                            Text(
-                              '${widget.productData.price}원',
-                              style: TextStyle(
-                                fontFamily: 'text',
-                                fontSize: 17,
-                              ),
-                            ),
-                            Spacer(flex: 1),
-                          ],
-                        ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.indeterminate_check_box),
-                              onPressed: () {
-                                setState(() {
-                                  if (productQuantity > 1) {
-                                    productQuantity--;
-                                  }
-                                });
-                              },
-                            ),
-                            Text('$productQuantity'),
-                            IconButton(
-                              icon: Icon(Icons.add_box),
-                              onPressed: () {
-                                setState(() {
-                                  productQuantity++;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         widget.productData.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'text',
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Icon(
@@ -305,43 +220,44 @@ class _DescriptionPageState extends State<DescriptionPage> {
                             widget.productData.favorite
                                 ? '174명이 찜한 상품입니다.'
                                 : '173명이 찜한 상품입니다.',
-                            style: TextStyle(fontSize: 10, fontFamily: 'text'),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'text',
+                            ),
                           ),
                         ],
                       ),
-
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: [
-                          Spacer(flex: 10),
+                          const Spacer(flex: 10),
                           Text(
                             '${widget.productData.price}원',
-                            style: TextStyle(fontFamily: 'text', fontSize: 17),
+                            style: const TextStyle(
+                              fontFamily: 'text',
+                              fontSize: 17,
+                            ),
                           ),
-                          Spacer(flex: 1),
+                          const Spacer(flex: 1),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: [
                           IconButton(
-                            icon: Icon(Icons.indeterminate_check_box),
+                            icon: const Icon(Icons.indeterminate_check_box),
                             onPressed: () {
                               setState(() {
-                                if (productQuantity > 1) {
-                                  productQuantity--;
-                                  print(productQuantity);
-                                }
+                                if (productQuantity > 1) productQuantity--;
                               });
                             },
                           ),
-                          Text('${productQuantity}'),
+                          Text('$productQuantity'),
                           IconButton(
-                            icon: Icon(Icons.add_box),
+                            icon: const Icon(Icons.add_box),
                             onPressed: () {
                               setState(() {
                                 productQuantity++;
-                                print(productQuantity);
                               });
                             },
                           ),
@@ -352,7 +268,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -362,13 +278,12 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     style: FilledButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
-                      fixedSize: Size(100, 50),
+                      fixedSize: const Size(100, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(0),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                     ),
-
-                    child: Text(
+                    child: const Text(
                       '상품 상세 설명',
                       style: TextStyle(
                         fontFamily: 'text',
@@ -383,13 +298,12 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     style: FilledButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
-                      fixedSize: Size(100, 50),
+                      fixedSize: const Size(100, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(15),
+                        borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-
-                    child: Text(
+                    child: const Text(
                       '리뷰 수',
                       style: TextStyle(
                         fontFamily: 'text',
@@ -400,13 +314,13 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 ),
               ],
             ),
-
-          SizedBox(height: 20),
-          Text(
-            widget.productData.description,
-            style: TextStyle(fontFamily: 'text', fontSize: 17),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Text(
+              widget.productData.description,
+              style: const TextStyle(fontFamily: 'text', fontSize: 17),
+            ),
+          ],
+        ),
       ),
     );
   }
