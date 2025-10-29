@@ -263,10 +263,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          onToggleFavorite(
-                            reversedProductList[index].favorite,
-                            index,
-                          );
+                          onToggleFavorite(productList[index].favorite, index);
                         },
                         icon: reversedProductList[index].favorite
                             ? Icon(Icons.favorite, color: Colors.red, size: 25)

@@ -99,7 +99,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                             title: widget.title,
                             cartList: widget.cartList,
                             resetProductSelected: widget.resetProductSelected,
-                            deleteProduct:widget.deleteProduct
+                            deleteProduct: widget.deleteProduct,
                           ),
                         ),
                       );
@@ -179,15 +179,21 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
+                        SizedBox(
+                          height: 40,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                '리뷰(240)',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'text',
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5.5,
+                                ),
+                                child: Text(
+                                  '리뷰(240)',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'text',
+                                  ),
                                 ),
                               ),
                               Icon(Icons.star, color: Colors.amber, size: 25),
