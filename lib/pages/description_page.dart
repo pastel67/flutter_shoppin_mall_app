@@ -230,20 +230,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       const Spacer(),
                       Row(
                         children: [
-                          const Spacer(flex: 10),
-                          Text(
-                            '${widget.productData.price}원',
-                            style: const TextStyle(
-                              fontFamily: 'text',
-                              fontSize: 17,
-                            ),
-                          ),
-                          const Spacer(flex: 1),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
                           IconButton(
                             icon: const Icon(Icons.indeterminate_check_box),
                             onPressed: () {
@@ -261,6 +247,15 @@ class _DescriptionPageState extends State<DescriptionPage> {
                               });
                             },
                           ),
+                          const Spacer(),
+                          Text(
+                            '${widget.productData.price * productQuantity}원',
+                            style: const TextStyle(
+                              fontFamily: 'text',
+                              fontSize: 17,
+                            ),
+                          ),
+                          SizedBox(width: 12),
                         ],
                       ),
                     ],

@@ -15,7 +15,6 @@ class ShoppingHomePage extends StatefulWidget {
 
 class _ShoppingHomePageState extends State<ShoppingHomePage> {
   final String title = 'TaDak#'; //타닥샵 #이 상점의 샵을 뜻하면서 키캡의 네모난 모양과 비슷해서 #으로 씀
-
   List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
 
@@ -27,7 +26,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   void resetProductSelected(List<CartItem> changedCartList) {
     cartList = changedCartList;
-    setState((){});
+    setState(() {});
   }
 
   void deleteProduct(List<CartItem> changedCartList) {
@@ -36,7 +35,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         item.isSelected = !item.isSelected;
       }
     }
-    setState((){});
+    setState(() {});
   }
 
   // 상품 추가시 데이터를 가져오는 함수
@@ -190,10 +189,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   // 상품 리스트
   Widget productListView({required String title}) {
-
     return ListView.builder(
-      reverse: true,
       itemBuilder: (context, index) {
+        int reversedIndex = productList.length - 1 - index;
+
         return GestureDetector(
           onTap: () {
             Navigator.push(
@@ -202,11 +201,14 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 builder: (context) => DescriptionPage(
                   title: title,
                   onToggleFavorite: () {
-                    onToggleFavorite(productList[index].favorite, index);
+                    onToggleFavorite(
+                      productList[reversedIndex].favorite,
+                      reversedIndex,
+                    );
                   },
                   deleteProduct: deleteProduct,
                   addProductInCart: addProductInCart,
-                  productData: productList[index],
+                  productData: productList[reversedIndex],
                   cartList: cartList,
                   resetProductSelected: resetProductSelected,
                 ),
@@ -231,7 +233,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   SizedBox(
                     height: 110,
                     width: 110,
-                    child: Image.asset(productList[index].image),
+                    child: Image.asset(productList[reversedIndex].image),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -241,7 +243,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            productList[index].name,
+                            productList[reversedIndex].name,
                             style: TextStyle(
                               fontFamily: 'text',
                               fontWeight: FontWeight.bold,
@@ -249,7 +251,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            productList[index].description,
+                            productList[reversedIndex].description,
                             maxLines: 2,
                             style: TextStyle(fontFamily: 'text'),
                           ),
@@ -262,9 +264,12 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          onToggleFavorite(productList[index].favorite, index);
+                          onToggleFavorite(
+                            productList[reversedIndex].favorite,
+                            reversedIndex,
+                          );
                         },
-                        icon: productList[index].favorite
+                        icon: productList[reversedIndex].favorite
                             ? Icon(Icons.favorite, color: Colors.red, size: 25)
                             : Icon(Icons.favorite_border),
                       ),
@@ -272,7 +277,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 10),
                         child: Text(
-                          "${productList[index].price}원",
+                          "${productList[reversedIndex].price}원",
                           style: TextStyle(fontFamily: 'text', fontSize: 15),
                         ),
                       ),
