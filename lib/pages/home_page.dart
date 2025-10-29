@@ -23,9 +23,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
-      print('1 - 1 ${productList[index].favorite}');
       productList[index].favorite = !toggleFavorite;
-      print('1 - 2 ${productList[index].favorite}');
     });
   }
 
@@ -48,19 +46,23 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     });
   }
 
+
   // 장바구니에 상품을 추가 하는 함수
   void addProductInCart(
     ProductEntity addCartProduct,
-    bool addCartisSelected,
-    int addCartquantity,
+    bool? addCartisSelected,
+    int? addQuantity,
   ) {
-    cartList.add(
-      CartItem(
-        product: addCartProduct,
-        isSelected: addCartisSelected,
-        quantity: addCartquantity,
-      ),
-    );
+    setState(() {
+      cartList.add(
+        CartItem(
+          product: addCartProduct,
+          isSelected: addCartisSelected ?? false,
+          quantity: addQuantity ?? 1,
+        ),
+      );
+      print('추가 되는 건가111');
+    });
   }
 
   // 더미 데이터 추가
@@ -161,9 +163,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       ),
     );
 
-    // for (int i = 0; i < productList.length; i++) {
-    //   cartList.add(CartItem(product: productList[i]));
-    // }
+    for (int i = 0; i < productList.length; i++) {
+      cartList.add(CartItem(product: productList[i]));
+    }
     super.initState();
   }
 
@@ -171,6 +173,17 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 185, 232, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: Text(
           title,
@@ -275,6 +288,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   onToggleFavorite: () {
                     onToggleFavorite(productList[index].favorite, index);
                   },
+                  addProductInCart: addProductInCart,
                   productData: productList[index],
                 ),
               ),
