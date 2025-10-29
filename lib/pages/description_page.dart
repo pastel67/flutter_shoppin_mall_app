@@ -328,7 +328,14 @@ class _DescriptionPageState extends State<DescriptionPage> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(title, style: TextStyle(fontSize: 15, fontFamily: 'text')),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'text',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           TextButton(
             child: Text(
