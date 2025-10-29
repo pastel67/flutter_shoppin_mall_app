@@ -20,7 +20,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
-      productList[index].favorite = toggleFavorite;
+      productList[index].favorite = !toggleFavorite;
     });
   }
 
@@ -45,6 +45,23 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         favorite: newFavorite,
       ),
     );
+
+  // 장바구니에 상품을 추가 하는 함수
+  void addProductInCart(
+    ProductEntity addCartProduct,
+    bool? addCartisSelected,
+    int? addQuantity,
+  ) {
+    setState(() {
+      cartList.add(
+        CartItem(
+          product: addCartProduct,
+          isSelected: addCartisSelected ?? false,
+          quantity: addQuantity ?? 1,
+        ),
+      );
+      print('추가 되는 건가111');
+    });
   }
 
   //더미 데이터 추가
@@ -155,6 +172,17 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 185, 232, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: Text(
           title,
@@ -249,7 +277,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
                   title: title,
-
+                  onToggleFavorite: () {
+                    onToggleFavorite(productList[index].favorite, index);
+                  },
+                  addProductInCart: addProductInCart,
                   productData: productList[index],
                 ),
               ),

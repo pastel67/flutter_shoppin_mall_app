@@ -47,6 +47,17 @@ class _AddProductPageState extends State<AddProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 210, 240, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: GestureDetector(
           onTap: () {

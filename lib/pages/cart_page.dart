@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
@@ -43,6 +44,17 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 185, 232, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: GestureDetector(
           onTap: () {
@@ -140,10 +152,10 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
+  // 카트 리스트
   ListView cartList() {
     final double bottomHeight = 120;
     return ListView.builder(
-      reverse: true,
       padding: EdgeInsets.only(
         bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
       ),
@@ -178,7 +190,9 @@ class _CartPageState extends State<CartPage> {
               SizedBox(
                 width: 80,
                 height: 80,
-                child: Image.asset(productData.image),
+                child: productData.image.startsWith('assets/')
+                    ? Image.asset(productData.image, fit: BoxFit.contain)
+                    : Image.file(File(productData.image)),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
