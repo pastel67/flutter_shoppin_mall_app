@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/dummy_data.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
@@ -29,14 +30,14 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     String image,
     String name,
     int prise,
-    String descriptiuon,
+    String description,
   ) {
     setState(() {
       productList.add(
         ProductEntity(
           image: image,
           name: name,
-          descriptiuon: descriptiuon,
+          description: description,
           price: prise,
         ),
       );
@@ -152,6 +153,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     for (int i = 0; i < productList.length; i++) {
       cartList.add(CartItem(product: productList[i]));
     }
+    DummyData(cartList: cartList, productList: productList).addDummyData();
     super.initState();
   }
 
@@ -312,8 +314,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            productList[index].descriptiuon,
-                            maxLines: 3,
+                            productList[index].description,
+                            maxLines: 2,
                             style: TextStyle(fontFamily: 'text'),
                           ),
                         ],
