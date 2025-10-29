@@ -111,20 +111,23 @@ class _FavotiePageState extends State<FavotiePage> {
                       ),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(Icons.favorite, color: Colors.red, size: 25),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Icon(Icons.favorite, color: Colors.red, size: 25),
 
-                      SizedBox(height: 40),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5, right: 10),
-                        child: Text(
-                          "${widget.productList[reversedIndex].price}원",
-                          style: TextStyle(fontFamily: 'text', fontSize: 15),
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5, right: 10),
+                          child: Text(
+                            "${widget.productList[reversedIndex].price}원",
+                            style: TextStyle(fontFamily: 'text', fontSize: 15),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
