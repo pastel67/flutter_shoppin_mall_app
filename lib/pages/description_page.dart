@@ -34,7 +34,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
   bool isSelected = false;
 
   void addCart() {
-    print(productQuantity);
     widget.addProductInCart(widget.productData, isSelected, productQuantity);
   }
 
@@ -73,58 +72,56 @@ class _DescriptionPageState extends State<DescriptionPage> {
 
       bottomSheet: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 34),
-        child: Container(
-          child: Row(
-            children: [
-              IconButton(
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {
+                showDescriptionDialog(context, "장바구니에 추가하시겠습니까?", () {
+                  addCart();
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                });
+              },
+              icon: Icon(Icons.shopping_cart, size: 30),
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: FilledButton(
                 onPressed: () {
-                  showDescriptionDialog(context, "장바구니에 추가하시겠습니까?", () {
+                  showDescriptionDialog(context, "해당 상품을 구매하시겠습니까?", () {
+                    isSelected = true;
                     addCart();
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (route) => CartPage(
+                          title: widget.title,
+                          cartList: widget.cartList,
+                          resetProductSelected: widget.resetProductSelected,
+                          deleteProduct: widget.deleteProduct,
+                        ),
+                      ),
+                    );
                   });
                 },
-                icon: Icon(Icons.shopping_cart, size: 30),
-              ),
-              SizedBox(width: 20),
-              Expanded(
-                child: FilledButton(
-                  onPressed: () {
-                    showDescriptionDialog(context, "해당 상품을 구매하시겠습니까?", () {
-                      isSelected = true;
-                      addCart();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (route) => CartPage(
-                            title: widget.title,
-                            cartList: widget.cartList,
-                            resetProductSelected: widget.resetProductSelected,
-                            deleteProduct: widget.deleteProduct,
-                          ),
-                        ),
-                      );
-                    });
-                  },
-                  style: FilledButton.styleFrom(
-                    backgroundColor: Colors.lightBlue,
-                    foregroundColor: Colors.white,
-                    fixedSize: Size(100, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.lightBlue,
+                  foregroundColor: Colors.white,
+                  fixedSize: Size(100, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  child: (Text(
-                    '구매하기',
-                    style: TextStyle(
-                      fontFamily: 'text',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  )),
                 ),
+                child: (Text(
+                  '구매하기',
+                  style: TextStyle(
+                    fontFamily: 'text',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -269,18 +266,16 @@ class _DescriptionPageState extends State<DescriptionPage> {
                                 setState(() {
                                   if (productQuantity > 1) {
                                     productQuantity--;
-                                    print(productQuantity);
                                   }
                                 });
                               },
                             ),
-                            Text('${productQuantity}'),
+                            Text('$productQuantity'),
                             IconButton(
                               icon: Icon(Icons.add_box),
                               onPressed: () {
                                 setState(() {
                                   productQuantity++;
-                                  print(productQuantity);
                                 });
                               },
                             ),

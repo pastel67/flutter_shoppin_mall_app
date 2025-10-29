@@ -19,9 +19,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
 
-  void onToggleFavorite(bool toggleFavorite, int index) {
+  void onToggleFavorite(bool toggleFavorite, int reversedIndex) {
     setState(() {
-      productList[index].favorite = !toggleFavorite;
+      productList[reversedIndex].favorite = !toggleFavorite;
     });
   }
 
@@ -191,6 +191,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     List<ProductEntity> reversedProductList = productList.reversed.toList();
 
     return ListView.builder(
+      reverse: true,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
@@ -200,14 +201,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 builder: (context) => DescriptionPage(
                   title: title,
                   onToggleFavorite: () {
-                    onToggleFavorite(
-                      reversedProductList[index].favorite,
-                      index,
-                    );
+                    onToggleFavorite(productList[index].favorite, index);
                   },
                   deleteProduct: deleteProduct,
                   addProductInCart: addProductInCart,
-                  productData: reversedProductList[index],
+                  productData: productList[index],
                   cartList: cartList,
                   resetProductSelected: resetProductSelected,
                 ),
@@ -232,7 +230,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   SizedBox(
                     height: 110,
                     width: 110,
-                    child: Image.asset(reversedProductList[index].image),
+                    child: Image.asset(productList[index].image),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -242,7 +240,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            reversedProductList[index].name,
+                            productList[index].name,
                             style: TextStyle(
                               fontFamily: 'text',
                               fontWeight: FontWeight.bold,
@@ -250,7 +248,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            reversedProductList[index].description,
+                            productList[index].description,
                             maxLines: 2,
                             style: TextStyle(fontFamily: 'text'),
                           ),
@@ -265,7 +263,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                         onPressed: () {
                           onToggleFavorite(productList[index].favorite, index);
                         },
-                        icon: reversedProductList[index].favorite
+                        icon: productList[index].favorite
                             ? Icon(Icons.favorite, color: Colors.red, size: 25)
                             : Icon(Icons.favorite_border),
                       ),
@@ -273,7 +271,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 10),
                         child: Text(
-                          "${reversedProductList[index].price}원",
+                          "${productList[index].price}원",
                           style: TextStyle(fontFamily: 'text', fontSize: 15),
                         ),
                       ),
@@ -285,7 +283,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           ),
         );
       },
-      itemCount: reversedProductList.length,
+      itemCount: productList.length,
     );
   }
 }

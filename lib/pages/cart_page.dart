@@ -82,7 +82,7 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
         body: widget.cartList.isEmpty
-            ? Container(
+            ? SizedBox(
                 height: 550,
                 child: Center(
                   child: Text(
