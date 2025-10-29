@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
@@ -6,11 +8,14 @@ class DescriptionPage extends StatefulWidget {
   final String title;
   final ProductEntity productData;
   VoidCallback onToggleFavorite;
+  void Function(ProductEntity addCartProduct, bool isSelected, int addQuantity)
+  addProductInCart;
 
   DescriptionPage({
     required this.title,
     required this.productData,
     required this.onToggleFavorite,
+    required this.addProductInCart,
   });
 
   @override
@@ -18,12 +23,29 @@ class DescriptionPage extends StatefulWidget {
 }
 
 class _DescriptionPageState extends State<DescriptionPage> {
+  int productQuantity = 1;
+  bool isSelected = false;
+
+  void addCart() {
+    print(productQuantity);
+    widget.addProductInCart(widget.productData, isSelected, productQuantity);
+  }
+
   @override
   Widget build(BuildContext context) {
-    CartItem addCartProduct;
-
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 185, 232, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: GestureDetector(
           onTap: () {
@@ -39,247 +61,285 @@ class _DescriptionPageState extends State<DescriptionPage> {
           child: Divider(color: Colors.lightBlueAccent, thickness: 5),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(18),
-        child: SingleChildScrollView(
-          child: Column(
+
+      body: productData(context),
+
+      bottomSheet: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 34),
+        child: Container(
+          child: Row(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: AlertDialog(
-                              content: Expanded(
-                                child: Image.asset(
-                                  widget.productData.image,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(widget.productData.image),
-                    ),
-                  ),
-                  //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: SizedBox(
-                      width: 150,
-                      height: 200,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '리뷰(240)',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'text',
-                                  ),
-                                ),
-                                Icon(Icons.star, color: Colors.amber, size: 25),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: () {
-                                    print(
-                                      '2 -1 ${widget.productData.favorite}',
-                                    );
-                                    setState(() {
-                                      widget.onToggleFavorite();
-                                    });
-                                    print(
-                                      '2 -2 ${widget.productData.favorite}',
-                                    );
-                                  },
-                                  icon: widget.productData.favorite
-                                      ? Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                          size: 25,
-                                        )
-                                      : Icon(Icons.favorite_border),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            widget.productData.name,
-                            style: TextStyle(
-                              fontFamily: 'text',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.favorite_border,
-                                color: Colors.lightBlueAccent,
-                                size: 10,
-                              ),
-                              Text(
-                                '173명이 찜한 상품입니다.',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'text',
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Spacer(),
-                          Row(
-                            children: [
-                              Spacer(flex: 10),
-                              Text(
-                                '${widget.productData.price}원',
-                                style: TextStyle(
-                                  fontFamily: 'text',
-                                  fontSize: 17,
-                                ),
-                              ),
-                              Spacer(flex: 1),
-                            ],
-                          ),
-                          Spacer(),
-                          Row(
-                            children: [
-                              // IconButton(
-                              //   icon: Icon(Icons.remove_circle_outline),
-                              //   onPressed: () {
-                              //     setState(() {
-                              //       if (cartItem.quantity > 1) {
-                              //         cartItem.quantity--;
-                              //       }
-                              //     });
-                              //     calculatTotalPrice();
-                              //     cartItem.quantity = cartItem.quantity;
-                              //   },
-                              // ),
-                              // Text('${cartItem.quantity}'),
-                              // IconButton(
-                              //   icon: Icon(Icons.add_circle_outline),
-                              //   onPressed: () {
-                              //     setState(() {
-                              //       cartItem.quantity++;
-                              //       cartItem.quantity = cartItem.quantity;
-                              //       calculatTotalPrice();
-                              //     });
-                              //   },
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              IconButton(
+                onPressed: () {
+                  showDescriptionDialog(context, "장바구니에 추가하시겠습니까?", () {
+                    addCart();
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  });
+                },
+                icon: Icon(Icons.shopping_cart, size: 30),
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: () {},
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        fixedSize: Size(100, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(0),
-                        ),
-                      ),
-
-                      child: Text(
-                        '상품 상세 설명',
-                        style: TextStyle(
-                          fontFamily: 'text',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+              SizedBox(width: 20),
+              Expanded(
+                child: FilledButton(
+                  onPressed: () {},
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.lightBlue,
+                    foregroundColor: Colors.white,
+                    fixedSize: Size(100, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: () {},
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        fixedSize: Size(100, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(15),
-                        ),
-                      ),
-
-                      child: Text(
-                        '리뷰 수',
-                        style: TextStyle(
-                          fontFamily: 'text',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                  child: (Text(
+                    '구매하기',
+                    style: TextStyle(
+                      fontFamily: 'text',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Text(
-                widget.productData.descriptiuon,
-                style: TextStyle(fontFamily: 'text'),
+                  )),
+                ),
               ),
             ],
           ),
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 34),
-        child: Row(
+    );
+  }
+
+  Padding productData(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.shopping_cart, size: 30),
-            ),
-            SizedBox(width: 20),
-            Expanded(
-              child: FilledButton(
-                onPressed: () {},
-                style: FilledButton.styleFrom(
-                  backgroundColor: Colors.lightBlue,
-                  foregroundColor: Colors.white,
-                  fixedSize: Size(100, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: AlertDialog(
+                            content:
+                                widget.productData.image.startsWith('assets/')
+                                ? Image.asset(
+                                    widget.productData.image,
+                                    fit: BoxFit.contain,
+                                  )
+                                : Image.file(File(widget.productData.image)),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: widget.productData.image.startsWith('assets/')
+                        ? Image.asset(
+                            widget.productData.image,
+                            fit: BoxFit.contain,
+                          )
+                        : Image.file(File(widget.productData.image)),
                   ),
                 ),
-                child: (Text(
-                  '구매하기',
-                  style: TextStyle(
-                    fontFamily: 'text',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                Spacer(),
+                //리뷰수, 즐겨찾기, 상품명, 가격, 수량체크, 장바구니 /구매하기
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '리뷰(240)',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'text',
+                                ),
+                              ),
+                              Icon(Icons.star, color: Colors.amber, size: 25),
+                              Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    widget.onToggleFavorite();
+                                  });
+                                },
+                                icon: widget.productData.favorite
+                                    ? Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                        size: 25,
+                                      )
+                                    : Icon(Icons.favorite_border),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          widget.productData.name,
+                          style: TextStyle(
+                            fontFamily: 'text',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.favorite_border,
+                              color: widget.productData.favorite
+                                  ? Colors.red
+                                  : Colors.lightBlueAccent,
+                              size: 10,
+                            ),
+                            Text(
+                              widget.productData.favorite
+                                  ? '174명이 찜한 상품입니다.'
+                                  : '173명이 찜한 상품입니다.',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'text',
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Spacer(),
+                        Row(
+                          children: [
+                            Spacer(flex: 10),
+                            Text(
+                              '${widget.productData.price}원',
+                              style: TextStyle(
+                                fontFamily: 'text',
+                                fontSize: 17,
+                              ),
+                            ),
+                            Spacer(flex: 1),
+                          ],
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.indeterminate_check_box),
+                              onPressed: () {
+                                setState(() {
+                                  if (productQuantity > 1) {
+                                    productQuantity--;
+                                    print(productQuantity);
+                                  }
+                                });
+                              },
+                            ),
+                            Text('${productQuantity}'),
+                            IconButton(
+                              icon: Icon(Icons.add_box),
+                              onPressed: () {
+                                setState(() {
+                                  productQuantity++;
+                                  print(productQuantity);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                )),
-              ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {},
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      fixedSize: Size(100, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(0),
+                      ),
+                    ),
+
+                    child: Text(
+                      '상품 상세 설명',
+                      style: TextStyle(
+                        fontFamily: 'text',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {},
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      fixedSize: Size(100, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(15),
+                      ),
+                    ),
+
+                    child: Text(
+                      '리뷰 수',
+                      style: TextStyle(
+                        fontFamily: 'text',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Text(
+              widget.productData.descriptiuon,
+              style: TextStyle(fontFamily: 'text'),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> showDescriptionDialog(
+    BuildContext context,
+    String title,
+    void acceptFunction(),
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        actions: [
+          TextButton(
+            child: Text("취소"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          TextButton(child: Text("확인"), onPressed: acceptFunction),
+        ],
       ),
     );
   }

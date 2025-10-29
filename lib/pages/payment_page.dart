@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 
@@ -26,6 +28,17 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white,
+                const Color.fromARGB(255, 229, 247, 255),
+                const Color.fromARGB(255, 185, 232, 255),
+              ],
+            ),
+          ),
+        ),
         centerTitle: true,
         title: GestureDetector(
           onTap: () {
@@ -46,9 +59,9 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            inputText('받는분 성함',nameController),
-            inputText('배송지 입력',addressController),
-            inputText('배달 요청 사항',requestController),
+            inputText('받는분 성함', nameController),
+            inputText('배송지 입력', addressController),
+            inputText('배달 요청 사항', requestController),
             // 장바구니에 담긴거 가져와서 보여주기
             Expanded(
               child: SingleChildScrollView(
@@ -70,7 +83,13 @@ class _PaymentPageState extends State<PaymentPage> {
                             SizedBox(
                               width: 60,
                               height: 60,
-                              child: Image.asset(cartItem.product.image), // 이미지
+                              child:
+                                  cartItem.product.image.startsWith('assets/')
+                                  ? Image.asset(
+                                      cartItem.product.image,
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Image.file(File(cartItem.product.image)),
                             ),
                             SizedBox(width: 10),
                             Expanded(
