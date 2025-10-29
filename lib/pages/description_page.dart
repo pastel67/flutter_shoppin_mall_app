@@ -306,17 +306,11 @@ class _DescriptionPageState extends State<DescriptionPage> {
               ),
             ],
           ),
+
           SizedBox(height: 20),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(
-                bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
-              ),
-              child: Text(
-                widget.productData.descriptiuon,
-                style: TextStyle(fontFamily: 'text'),
-              ),
-            ),
+          Text(
+            widget.productData.description,
+            style: TextStyle(fontFamily: 'text'),
           ),
         ],
       ),

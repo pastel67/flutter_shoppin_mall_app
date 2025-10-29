@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/dummy_data.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
@@ -29,14 +30,14 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     String image,
     String name,
     int prise,
-    String descriptiuon,
+    String description,
   ) {
     setState(() {
       productList.add(
         ProductEntity(
           image: image,
           name: name,
-          descriptiuon: descriptiuon,
+          description: description,
           price: prise,
         ),
       );
@@ -64,104 +65,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   //더미 데이터 추가
   @override
   void initState() {
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '기본 키보드',
-        price: 80000,
-        favorite: false,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 160000,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/적축키보드.webp',
-        name: '적축 키보드',
-        price: 100000,
-        favorite: false,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '가죽 핸드백',
-        descriptiuon: '고급스러운 가죽 소재의 여성 핸드백',
-        price: 45000,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '러닝화',
-        descriptiuon: '편안한 착용감의 운동화',
-        price: 69000,
-        favorite: true,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '러닝화',
-        descriptiuon: '편안한 착용감의 운동화',
-        price: 69000,
-        favorite: true,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '시계',
-        descriptiuon: '깔끔한 디자인의 손목시계',
-        price: 120000,
-        favorite: false,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/기본키보드.webp',
-        name: '시계',
-        descriptiuon: '깔끔한 디자인의 손목시계',
-        price: 120000,
-        favorite: false,
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 160000,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
-      ),
-    );
-    productList.add(
-      ProductEntity(
-        image: 'assets/단청키보드.webp',
-        name: '단청 키보드',
-        price: 1600,
-        favorite: true,
-        descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\nㅇㄹㄴㅇㄹㅇㄴ\n\n\n\n\nㄴㅇㄹㄴㅇㄹ\n\n\n\n\n\n\n\n\n\n\n\n\n\nㅇㄴㄹㄴㄹ\n\n하하',
-      ),
-    );
-
-    for (int i = 0; i < productList.length; i++) {
-      cartList.add(CartItem(product: productList[i]));
-    }
+    DummyData(cartList: cartList, productList: productList).addDummyData();
     super.initState();
   }
 
@@ -322,8 +226,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            productList[index].descriptiuon,
-                            maxLines: 3,
+                            productList[index].description,
+                            maxLines: 2,
                             style: TextStyle(fontFamily: 'text'),
                           ),
                         ],
