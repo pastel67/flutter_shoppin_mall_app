@@ -7,6 +7,8 @@ Flutter로 제작한 간단한 쇼핑몰 애플리케이션입니다.
 
 ## 주요 기능
 ### 홈 화면 (HomePage)
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 16 - 2025-10-29 at 22 09 36" src="https://github.com/user-attachments/assets/b0899931-4d1d-43ab-9b63-41afe051a724" />
+
 
 상품 목록(ProductList)을 카드 형태로 표시
 
@@ -15,6 +17,7 @@ Flutter로 제작한 간단한 쇼핑몰 애플리케이션입니다.
 찜 버튼 클릭 시 즐겨찾기 상태 토글
 
 ### 상품 상세 페이지 (DescriptionPage)
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 16 - 2025-10-29 at 22 09 41" src="https://github.com/user-attachments/assets/222c8523-60ca-42b9-aff3-d4c7260b735c" />
 
 선택한 상품의 이미지, 이름, 가격, 상세설명 표시
 
@@ -28,6 +31,7 @@ Flutter로 제작한 간단한 쇼핑몰 애플리케이션입니다.
 
 
 ### 장바구니 페이지 (CartPage)
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 16 - 2025-10-29 at 22 10 02" src="https://github.com/user-attachments/assets/55aa7bab-2383-432a-8269-504d7f2921ba" />
 
 담긴 상품 목록 표시
 
@@ -38,6 +42,7 @@ Flutter로 제작한 간단한 쇼핑몰 애플리케이션입니다.
 결제 후 장바구니 초기화 기능 제공
 
 ### 상품 등록 페이지 (AddProductPage)
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 16 - 2025-10-29 at 22 10 18" src="https://github.com/user-attachments/assets/cf7fdba8-2e77-46a1-9cfc-266d6a01d631" />
 
 갤러리에서 이미지 업로드 (image_picker 사용)
 
