@@ -26,7 +26,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
 
   // 상품 추가시 데이터를 가져오는 함수
   void getNewProductData(
-    String  image,
+    String image,
     String name,
     int prise,
     String descriptiuon,
@@ -42,24 +42,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       );
     });
   }
-
-  // 상품 추가시 데이터를 가져오는 함수
-  void getNewProductData({
-    required String newImage,
-    required final String newName,
-    required final String newDescriptiuon,
-    required final int newPrice,
-    required bool newFavorite,
-  }) {
-    productList.add(
-      ProductEntity(
-        image: newImage,
-        name: newName,
-        descriptiuon: newDescriptiuon,
-        price: newPrice,
-        favorite: newFavorite,
-      ),
-    );
 
   // 장바구니에 상품을 추가 하는 함수
   void addProductInCart(
@@ -170,10 +152,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       ProductEntity(
         image: 'assets/단청키보드.webp',
         name: '단청 키보드',
-        price: 160000,
+        price: 1600,
         favorite: true,
         descriptiuon:
-            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하하',
+            '이곳은 상품 상세 내용을 작성하는 공간 입니다.\n\n\n\n\nㅇㄹㄴㅇㄹㅇㄴ\n\n\n\n\nㄴㅇㄹㄴㅇㄹ\n\n\n\n\n\n\n\n\n\n\n\n\n\nㅇㄴㄹㄴㄹ\n\n하하',
       ),
     );
 
@@ -353,8 +335,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          productList[index].favorite =
-                              !productList[index].favorite;
                           onToggleFavorite(productList[index].favorite, index);
                         },
                         icon: productList[index].favorite

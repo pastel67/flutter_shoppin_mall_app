@@ -155,7 +155,10 @@ class _AddProductPageState extends State<AddProductPage> {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text("아직 준비중..!"),
+                      content: Text(
+                        "아직 준비중..!",
+                        style: TextStyle(fontFamily: 'text', fontSize: 20),
+                      ),
                       duration: Duration(seconds: 2),
                     ),
                   );
@@ -267,9 +270,7 @@ class _AddProductPageState extends State<AddProductPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.lightBlue[100],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
         onPressed: uploadFunction,
         child: Container(
@@ -283,6 +284,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 style: TextStyle(
                   color: const Color.fromARGB(255, 0, 31, 84),
                   fontFamily: 'text',
+                  fontSize: 15,
                 ),
               ),
             ],
