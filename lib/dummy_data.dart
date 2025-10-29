@@ -70,7 +70,8 @@ class DummyData {
     );
 
     for (int i = 0; i < productList.length; i++) {
-      cartList.add(CartItem(product: productList[i]));
+      if(i%2 == 0){
+      cartList.add(CartItem(product: productList[i]));}
     }
   }
 }

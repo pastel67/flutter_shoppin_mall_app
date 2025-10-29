@@ -238,7 +238,7 @@ class _AddProductPageState extends State<AddProductPage> {
                       productPrice,
                       descriptionController.text,
                     );
-                    Navigator.pop(context);
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   }
                 : null,
             child: Text(
