@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/dummy_data.dart';
+import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/favotie_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:intl/intl.dart';
 
 class ShoppingHomePage extends StatefulWidget {
   const ShoppingHomePage({super.key});
@@ -163,9 +165,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(onPressed: () {
-
-            }, icon: Icon(Icons.home, size: 40)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 40)),
             Spacer(),
             IconButton(
               onPressed: () {
@@ -233,6 +233,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     return ListView.builder(
       itemBuilder: (context, index) {
         int reversedIndex = productList.length - 1 - index;
+        
 
         return GestureDetector(
           onTap: () {
@@ -318,7 +319,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 10),
                         child: Text(
-                          "${productList[reversedIndex].price}원",
+                          "${PriceFormatter(productList[index].price).priceFormat()}원",
                           style: TextStyle(fontFamily: 'text', fontSize: 15),
                         ),
                       ),

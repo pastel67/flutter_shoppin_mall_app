@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/product_entity.dart';
@@ -123,7 +124,7 @@ class _FavotiePageState extends State<FavotiePage> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5, right: 10),
                           child: Text(
-                            "${widget.productList[reversedIndex].price}원",
+                            "${PriceFormatter(widget.productList[reversedIndex].price).priceFormat()}원",
                             style: TextStyle(fontFamily: 'text', fontSize: 15),
                           ),
                         ),

@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
+import 'package:intl/intl.dart';
 
 //도와줘요 준호맨~ 살려줘요 준호맨~
 
@@ -23,8 +25,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  int totalPrice = 0;
-
   int calculatTotalPrice() {
     int changedPrice = 0;
     List<CartItem> finalPriceList = widget.cartList
@@ -114,7 +114,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                   Spacer(),
                   Text(
-                    '${calculatTotalPrice()}원',
+                    '${PriceFormatter(calculatTotalPrice()).priceFormat()}원',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -170,6 +170,7 @@ class _CartPageState extends State<CartPage> {
   // 카트 리스트
   ListView cartList() {
     final double bottomHeight = 120;
+
     return ListView.builder(
       padding: EdgeInsets.only(
         bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
@@ -287,7 +288,7 @@ class _CartPageState extends State<CartPage> {
 
                       SizedBox(height: 20),
                       Text(
-                        '가격 ${cartItem.finalPrice()}원',
+                        '가격 ${PriceFormatter(cartItem.finalPrice()).priceFormat()}원',
                         style: TextStyle(fontSize: 12, fontFamily: 'text'),
                       ),
                       SizedBox(height: 10),
