@@ -15,5 +15,3 @@ class ProductEntity {
     this.typingSoundLink,
   });
 }
-
-// 리뷰 엔티티 (추후 추가 예정)

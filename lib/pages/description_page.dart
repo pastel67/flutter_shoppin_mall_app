@@ -14,7 +14,8 @@ class DescriptionPage extends StatefulWidget {
   void Function(List<CartItem> changedCartList) resetProductSelected;
   void Function(List<CartItem> changedCartList) deleteProduct;
   final List<CartItem> cartList;
-
+  
+  // 상세페이지 생성자
   DescriptionPage({
     required this.title,
     required this.productData,
