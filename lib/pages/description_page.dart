@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/widget/dialog.dart';
 
 class DescriptionPage extends StatefulWidget {
   final String title;
@@ -24,7 +25,6 @@ class DescriptionPage extends StatefulWidget {
 class _DescriptionPageState extends State<DescriptionPage> {
   int productQuantity = 1;
   bool isSelected = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +65,14 @@ class _DescriptionPageState extends State<DescriptionPage> {
           children: [
             IconButton(
               onPressed: () {
-                showDescriptionDialog(context, "장바구니에 추가하시겠습니까?", () {
-                  Cart.addCart(widget.index);
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                });
+                showDescriptionDialog(
+                  context: context,
+                  title: "장바구니에 추가하시겠습니까?",
+                  acceptFunction: () {
+                    Cart.addCart(widget.index);
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                );
               },
               icon: Icon(Icons.shopping_cart, size: 30),
             ),
@@ -76,19 +80,21 @@ class _DescriptionPageState extends State<DescriptionPage> {
             Expanded(
               child: FilledButton(
                 onPressed: () {
-                  showDescriptionDialog(context, "해당 상품을 구매하시겠습니까?", () {
-                    Cart.onToggleFavorite(widget.index);
-                    Cart.addCart(widget.index);
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (route) => CartPage(
-                          title: widget.title,
+                  showDescriptionDialog(
+                    context: context,
+                    title: "해당 상품을 구매하시겠습니까?",
+                    acceptFunction: () {
+                      Cart.onToggleFavorite(widget.index);
+                      Cart.addCart(widget.index);
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (route) => CartPage(title: widget.title),
                         ),
-                      ),
-                    );
-                  });
+                      );
+                    },
+                  );
                 },
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.lightBlue,
@@ -113,7 +119,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
       ),
     );
   }
-
 
   Widget productData(BuildContext context) {
     return SingleChildScrollView(
@@ -305,44 +310,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<dynamic> showDescriptionDialog(
-    BuildContext context,
-    String title,
-    void acceptFunction(),
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 15,
-            fontFamily: 'text',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          TextButton(
-            child: Text(
-              "취소",
-              style: TextStyle(fontFamily: 'text', color: Colors.red),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          TextButton(
-            onPressed: acceptFunction,
-            child: Text(
-              "확인",
-              style: TextStyle(fontFamily: 'text', color: Colors.lightBlue),
-            ),
-          ),
-        ],
       ),
     );
   }

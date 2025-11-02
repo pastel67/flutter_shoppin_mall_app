@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
+import 'package:flutter_shoppin_mall_app/widget/dialog.dart';
 
 class FavoriteList extends StatefulWidget {
   String title;
@@ -33,6 +34,17 @@ class _FavoriteListState extends State<FavoriteList> {
                     ),
                   );
                   print(reversedIndex);
+                },
+                onLongPress: () {
+                  showDescriptionDialog(
+                    context: context,
+                    title: "해당 상품을 삭제 하시겠습니까?",
+                    acceptFunction: () {
+                      Product.list.remove(Product.list[reversedIndex]);
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                  );
                 },
 
                 child: Container(
