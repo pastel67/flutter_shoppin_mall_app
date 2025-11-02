@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
-import 'package:intl/intl.dart';
 
 //도와줘요 준호맨~ 살려줘요 준호맨~
 
 class CartPage extends StatefulWidget {
   final String title;
-  final List<CartItem> cartList =Cart.list;
-  final void Function(List<CartItem> changedCartList) resetProductSelected;
+  final List<CartItem> cartList = Cart.list;
 
-  CartPage({
-    required this.title,
-    required this.resetProductSelected,
-  });
+  CartPage({required this.title});
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -48,7 +43,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        widget.resetProductSelected(widget.cartList);
+        Cart.resetProductSelected();
         print('페이지 나가기');
       },
       child: Scaffold(

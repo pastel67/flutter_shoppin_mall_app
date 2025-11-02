@@ -5,9 +5,8 @@ import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 
 class FavoriteList extends StatefulWidget {
   String title;
-  dynamic resetProductSelected;
 
-  FavoriteList(this.title, this.resetProductSelected);
+  FavoriteList(this.title);
 
   @override
   State<FavoriteList> createState() => _FavoriteListState();
@@ -29,7 +28,6 @@ class _FavoriteListState extends State<FavoriteList> {
                       builder: (context) => DescriptionPage(
                         title: widget.title,
                         productData: Product.list[reversedIndex],
-                        resetProductSelected: widget.resetProductSelected,
                         index: reversedIndex,
                       ),
                     ),

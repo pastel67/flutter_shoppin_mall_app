@@ -8,14 +8,12 @@ import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 class DescriptionPage extends StatefulWidget {
   final String title;
   final ProductEntity productData;
-  void Function(List<CartItem> changedCartList) resetProductSelected;
   final int index;
 
   // 상세페이지 생성자
   DescriptionPage({
     required this.title,
     required this.productData,
-    required this.resetProductSelected,
     required this.index,
   });
 
@@ -87,7 +85,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       MaterialPageRoute(
                         builder: (route) => CartPage(
                           title: widget.title,
-                          resetProductSelected: widget.resetProductSelected,
                         ),
                       ),
                     );

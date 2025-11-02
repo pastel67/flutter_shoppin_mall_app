@@ -5,9 +5,8 @@ import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
 
 class ProductListPage extends StatefulWidget {
   String title;
-  dynamic resetProductSelected;
 
-  ProductListPage(this.title, this.resetProductSelected);
+  ProductListPage(this.title, );
 
   @override
   State<ProductListPage> createState() => _ProductListPageState();
@@ -28,7 +27,6 @@ class _ProductListPageState extends State<ProductListPage> {
                 builder: (context) => DescriptionPage(
                   title: widget.title,
                   productData: Product.list[reversedIndex],
-                  resetProductSelected: widget.resetProductSelected,
                   index: reversedIndex,
                 ),
               ),

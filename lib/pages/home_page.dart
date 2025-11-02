@@ -22,9 +22,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   Widget onTogglePage(int pageNumber) {
     switch (pageNumber) {
       case 1:
-        return ProductListPage(title, resetProductSelected);
+        return ProductListPage(title);
       case 2:
-        return FavoriteList(title, resetProductSelected);
+        return FavoriteList(title);
       default:
         return Center(
           child: Text(
@@ -34,65 +34,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         );
     }
   }
-
-  void onToggleFavorite(int index) {
-    Product.onToggleFavorite(index: index);
+  void onSetState(){
+    setState((){});
   }
-
-  void resetProductSelected(List<CartItem> changedCartList) {
-    for (CartItem item in changedCartList) {
-      if (item.isSelected) {
-        item.isSelected = !item.isSelected;
-      }
-    }
-    setState(() {});
-    print('리셋');
-  }
-
-  void deleteProduct(List<CartItem> changedCartList) {
-    cartList = changedCartList;
-    print('삭제');
-    setState(() {});
-  }
-
-  // 상품 추가시 데이터를 가져오는 함수
-  void getNewProductData(
-    String image,
-    String name,
-    int prise,
-    String description,
-  ) {
-    setState(() {
-      Product.list.add(
-        ProductEntity(
-          image: image,
-          name: name,
-          description: description,
-          price: prise,
-        ),
-      );
-    });
-    print('상품추가');
-  }
-
-  // 장바구니에 상품을 추가 하는 함수
-  void addProductInCart(
-    ProductEntity addCartProduct,
-    bool? addCartisSelected,
-    int? addQuantity,
-  ) {
-    setState(() {
-      cartList.add(
-        CartItem(
-          product: addCartProduct,
-          isSelected: addCartisSelected ?? false,
-          quantity: addQuantity ?? 1,
-        ),
-      );
-      print('카트 추가');
-    });
-  }
-
   //더미 데이터 추가
   @override
   void initState() {
@@ -150,10 +94,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(
-                      title: title,
-                      newProduct: getNewProductData,
-                    ),
+                    builder: (context) => AddProductPage(title: title, onSetState:onSetState),
                   ),
                 );
               },
@@ -187,18 +128,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
             Spacer(),
             IconButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (Route) => FavoritePage(
-                //       cartList: cartList,
-                //       title: title,
-                //       resetProductSelected: resetProductSelected,
-                //       deleteProduct: deleteProduct,
-                //       getNewProductData: getNewProductData,
-                //     ),
-                //   ),
-                // );
                 pageNumber = 2;
                 setState(() {});
               },
@@ -210,10 +139,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CartPage(
-                      title: title,
-                      resetProductSelected: resetProductSelected,
-                    ),
+                    builder: (context) => CartPage(title: title),
                   ),
                 );
               },

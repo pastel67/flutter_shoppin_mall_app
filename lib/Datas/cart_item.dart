@@ -52,4 +52,12 @@ class Cart {
   static void deleteProduct(int index){
     list.remove(list[index]);
   }
+
+  static void resetProductSelected(){
+    for (CartItem item in list) {
+      if (item.isSelected) {
+        item.isSelected = !item.isSelected;
+      }
+    }
+  }
 }
