@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/add_product_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
 import 'package:flutter_shoppin_mall_app/pages/description_page.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 
 class FavoritePage extends StatefulWidget {
   final String title;
@@ -27,12 +27,6 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  void onToggleFavorite(bool toggleFavorite, int index) {
-    setState(() {
-      Product.list[index].favorite = !toggleFavorite;
-    });
-  }
-
   void resetProductSelected(List<CartItem> changedCartList) {
     for (CartItem item in changedCartList) {
       if (item.isSelected) {
@@ -127,126 +121,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 style: TextStyle(fontSize: 20, fontFamily: 'text'),
               ),
             )
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                int reversedIndex = Product.list.length - 1 - index;
-
-                return Product.list[reversedIndex].favorite
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DescriptionPage(
-                                title: widget.title,
-                                deleteProduct: deleteProduct,
-                                addProductInCart: addProductInCart,
-                                productData: Product.list[reversedIndex],
-                                cartList: cartList,
-                                resetProductSelected: resetProductSelected,
-                                index: reversedIndex,
-                              ),
-                            ),
-                          );
-                          print(reversedIndex);
-                        },
-
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 70, 75, 78),
-                              width: 3,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 10),
-                                SizedBox(
-                                  height: 110,
-                                  width: 110,
-                                  child: Image.asset(
-                                    Product.list[reversedIndex].image,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: SizedBox(
-                                    height: 100,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          Product.list[reversedIndex].name,
-                                          style: TextStyle(
-                                            fontFamily: 'text',
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: 8),
-                                        Text(
-                                          Product
-                                              .list[reversedIndex]
-                                              .description,
-                                          maxLines: 2,
-                                          style: TextStyle(fontFamily: 'text'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          Product.onToggleFavorite(
-                                            index: reversedIndex,
-                                          );
-                                          setState(() {});
-                                        },
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                          size: 25,
-                                        ),
-                                      ),
-                                      SizedBox(height: 40),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          bottom: 5,
-                                          right: 10,
-                                        ),
-                                        child: Text(
-                                          "${PriceFormatter(Product.list[reversedIndex].price).priceFormat()}원",
-                                          style: TextStyle(
-                                            fontFamily: 'text',
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container();
-              },
-              itemCount: Product.list.length,
-            ),
+          : Container(),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Stack(
@@ -303,7 +178,6 @@ class _FavoritePageState extends State<FavoritePage> {
                       builder: (context) => CartPage(
                         title: widget.title,
                         resetProductSelected: widget.resetProductSelected,
-                        deleteProduct: widget.deleteProduct,
                       ),
                     ),
                   );
@@ -335,4 +209,5 @@ class _FavoritePageState extends State<FavoritePage> {
       ),
     );
   }
+
 }

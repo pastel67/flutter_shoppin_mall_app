@@ -1,28 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/pages/cart_page.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 
 class DescriptionPage extends StatefulWidget {
   final String title;
   final ProductEntity productData;
-  void Function(ProductEntity addCartProduct, bool isSelected, int addQuantity)
-  addProductInCart;
   void Function(List<CartItem> changedCartList) resetProductSelected;
-  void Function(List<CartItem> changedCartList) deleteProduct;
-  final List<CartItem> cartList;
   final int index;
 
   // 상세페이지 생성자
   DescriptionPage({
     required this.title,
     required this.productData,
-    required this.addProductInCart,
-    required this.cartList,
     required this.resetProductSelected,
-    required this.deleteProduct,
     required this.index,
   });
 
@@ -34,9 +27,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
   int productQuantity = 1;
   bool isSelected = false;
 
-  void addCart() {
-    widget.addProductInCart(widget.productData, isSelected, productQuantity);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +88,6 @@ class _DescriptionPageState extends State<DescriptionPage> {
                         builder: (route) => CartPage(
                           title: widget.title,
                           resetProductSelected: widget.resetProductSelected,
-                          deleteProduct: widget.deleteProduct,
                         ),
                       ),
                     );

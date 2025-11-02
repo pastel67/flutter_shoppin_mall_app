@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
 import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
 import 'package:intl/intl.dart';
@@ -11,12 +11,10 @@ class CartPage extends StatefulWidget {
   final String title;
   final List<CartItem> cartList =Cart.list;
   final void Function(List<CartItem> changedCartList) resetProductSelected;
-  final void Function(List<CartItem> changedCartList) deleteProduct;
 
   CartPage({
     required this.title,
     required this.resetProductSelected,
-    required this.deleteProduct,
   });
 
   @override
@@ -135,7 +133,6 @@ class _CartPageState extends State<CartPage> {
                           MaterialPageRoute(
                             builder: (contaxt) => PaymentPage(
                               cartList: widget.cartList,
-                              deleteProduct: widget.deleteProduct,
                               title: widget.title,
                               totalPrice: calculatTotalPrice(),
                               selectedItems: selectedItems,
@@ -271,7 +268,7 @@ class _CartPageState extends State<CartPage> {
                         child: TextButton(
                           onPressed: () {
                             setState(() {
-                              widget.cartList.removeAt(reversedIndex);
+                              Cart.deleteProduct(reversedIndex);
                             });
                           },
                           child: Text(

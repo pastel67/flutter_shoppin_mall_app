@@ -1,4 +1,4 @@
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 
 class CartItem {
   ProductEntity product;
@@ -47,5 +47,9 @@ class Cart {
       list.add(CartItem(product: Product.list[index],isSelected: true));
       print('추가됨');
     }
+  }
+
+  static void deleteProduct(int index){
+    list.remove(list[index]);
   }
 }

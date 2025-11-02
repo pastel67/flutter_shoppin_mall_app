@@ -1,5 +1,5 @@
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 
 class DummyData {
   
