@@ -33,9 +33,11 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         );
     }
   }
-  void onSetState(){
-    setState((){});
+
+  void onSetState() {
+    setState(() {});
   }
+
   //더미 데이터 추가
   @override
   void initState() {
@@ -49,13 +51,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.white,
-                const Color.fromARGB(255, 229, 247, 255),
-                const Color.fromARGB(255, 185, 232, 255),
-              ],
-            ),
+            color: const Color.fromARGB(255, 229, 247, 255),
           ),
         ),
         centerTitle: true,
@@ -65,7 +61,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
-          child: Divider(color: Colors.lightBlueAccent, thickness: 5),
+          child: Divider(color: Colors.lightBlueAccent, thickness: 1),
         ),
       ),
 
@@ -93,7 +89,8 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddProductPage(title: title, onSetState:onSetState),
+                    builder: (context) =>
+                        AddProductPage(title: title, onSetState: onSetState),
                   ),
                 );
               },

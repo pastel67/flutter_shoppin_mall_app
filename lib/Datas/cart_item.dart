@@ -26,34 +26,29 @@ class Cart {
       print('추가 전 ${list[doubledIndex].quantity}');
       list[doubledIndex].quantity++;
       print('추가 후 ${list[doubledIndex].quantity}');
-    } else {
+    } else if (doubledProduct.quantity == 0) {
       list.add(CartItem(product: Product.list[index]));
       print('추가됨');
     }
   }
 
-  static void onToggleFavorite(int index){
+  static void onToggleFavorite(int index) {
     CartItem doubledProduct = list.firstWhere(
       (item) => item.product == Product.list[index],
       orElse: () => CartItem(product: Product.list[index], quantity: 0),
     );
     int doubledIndex = list.indexOf(doubledProduct);
 
-    if (doubledProduct.quantity >= 1 && doubledIndex != -1) {
-      print('추가 전 ${list[doubledIndex].quantity}');
       list[doubledIndex].isSelected = true;
-      print('추가 후 ${list[doubledIndex].quantity}');
-    } else {
-      list.add(CartItem(product: Product.list[index],isSelected: true));
-      print('추가됨');
-    }
+      print('변경됨');
+  
   }
 
-  static void deleteProduct(int index){
+  static void deleteProduct(int index) {
     list.remove(list[index]);
   }
 
-  static void resetProductSelected(){
+  static void resetProductSelected() {
     for (CartItem item in list) {
       if (item.isSelected) {
         item.isSelected = !item.isSelected;

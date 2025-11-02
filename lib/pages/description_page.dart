@@ -84,8 +84,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     context: context,
                     title: "해당 상품을 구매하시겠습니까?",
                     acceptFunction: () {
-                      Cart.onToggleFavorite(widget.index);
                       Cart.addCart(widget.index);
+                      Cart.onToggleFavorite(widget.index);
                       Navigator.pop(context);
                       Navigator.push(
                         context,
