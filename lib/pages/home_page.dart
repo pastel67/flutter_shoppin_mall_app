@@ -18,12 +18,11 @@ class ShoppingHomePage extends StatefulWidget {
 
 class _ShoppingHomePageState extends State<ShoppingHomePage> {
   final String title = 'TaDak#'; //타닥샵 #이 상점의 샵을 뜻하면서 키캡의 네모난 모양과 비슷해서 #으로 씀
-  List<ProductEntity> productList = [];
   List<CartItem> cartList = [];
 
-  void onToggleFavorite(bool toggleFavorite, int reversedIndex) {
+  void onToggleFavorite(bool toggleFavorite, int index) {
     setState(() {
-      productList[reversedIndex].favorite = !toggleFavorite;
+      Product.list[index].favorite = !toggleFavorite;
     });
   }
 
@@ -51,7 +50,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
     String description,
   ) {
     setState(() {
-      productList.add(
+      Product.list.add(
         ProductEntity(
           image: image,
           name: name,
@@ -84,7 +83,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   //더미 데이터 추가
   @override
   void initState() {
-    DummyData(cartList: cartList, productList: productList).addDummyData();
+    DummyData().addList();
     super.initState();
   }
 
@@ -114,14 +113,14 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
         ),
       ),
 
-      body: productList.isEmpty
+      body: Product.list.isEmpty
           ? Center(
               child: Text(
                 "등록된 상품이 없습니다.",
-                style: TextStyle(fontFamily: 'text'),
+                style: TextStyle(fontSize: 20, fontFamily: 'text'),
               ),
             )
-          : productListView(title: title),
+          : productListPage(title: title),
 
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 30),
@@ -172,11 +171,9 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (Route) => FavotiePage(
+                    builder: (Route) => FavoritePage(
                       cartList: cartList,
                       title: title,
-                      productList: productList,
-                      onToggleFavorite: onToggleFavorite,
                       resetProductSelected: resetProductSelected,
                       deleteProduct: deleteProduct,
                       getNewProductData: getNewProductData,
@@ -194,7 +191,6 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   MaterialPageRoute(
                     builder: (context) => CartPage(
                       title: title,
-                      cartList: cartList,
                       resetProductSelected: resetProductSelected,
                       deleteProduct: deleteProduct,
                     ),
@@ -229,11 +225,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
   }
 
   // 상품 리스트
-  Widget productListView({required String title}) {
+  Widget productListPage({required String title}) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        int reversedIndex = productList.length - 1 - index;
-        
+        int reversedIndex = Product.list.length - 1 - index;
 
         return GestureDetector(
           onTap: () {
@@ -242,20 +237,16 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
               MaterialPageRoute(
                 builder: (context) => DescriptionPage(
                   title: title,
-                  onToggleFavorite: () {
-                    onToggleFavorite(
-                      productList[reversedIndex].favorite,
-                      reversedIndex,
-                    );
-                  },
                   deleteProduct: deleteProduct,
                   addProductInCart: addProductInCart,
-                  productData: productList[reversedIndex],
+                  productData: Product.list[reversedIndex],
                   cartList: cartList,
                   resetProductSelected: resetProductSelected,
+                  index: reversedIndex,
                 ),
               ),
             );
+            print(reversedIndex);
           },
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -275,7 +266,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                   SizedBox(
                     height: 110,
                     width: 110,
-                    child: Image.asset(productList[reversedIndex].image),
+                    child: Image.asset(Product.list[reversedIndex].image),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -285,7 +276,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            productList[reversedIndex].name,
+                            Product.list[reversedIndex].name,
                             style: TextStyle(
                               fontFamily: 'text',
                               fontWeight: FontWeight.bold,
@@ -293,7 +284,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            productList[reversedIndex].description,
+                            Product.list[reversedIndex].description,
                             maxLines: 2,
                             style: TextStyle(fontFamily: 'text'),
                           ),
@@ -306,12 +297,10 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          onToggleFavorite(
-                            productList[reversedIndex].favorite,
-                            reversedIndex,
-                          );
+                          Product.onToggleFavorite(index: reversedIndex);
+                          setState(() {});
                         },
-                        icon: productList[reversedIndex].favorite
+                        icon: Product.list[reversedIndex].favorite
                             ? Icon(Icons.favorite, color: Colors.red, size: 25)
                             : Icon(Icons.favorite_border),
                       ),
@@ -319,7 +308,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 10),
                         child: Text(
-                          "${PriceFormatter(productList[index].price).priceFormat()}원",
+                          "${PriceFormatter(Product.list[reversedIndex].price).priceFormat()}원",
                           style: TextStyle(fontFamily: 'text', fontSize: 15),
                         ),
                       ),
@@ -331,7 +320,7 @@ class _ShoppingHomePageState extends State<ShoppingHomePage> {
           ),
         );
       },
-      itemCount: productList.length,
+      itemCount: Product.list.length,
     );
   }
 }

@@ -8,22 +8,22 @@ import 'package:flutter_shoppin_mall_app/product_entity.dart';
 class DescriptionPage extends StatefulWidget {
   final String title;
   final ProductEntity productData;
-  VoidCallback onToggleFavorite;
   void Function(ProductEntity addCartProduct, bool isSelected, int addQuantity)
   addProductInCart;
   void Function(List<CartItem> changedCartList) resetProductSelected;
   void Function(List<CartItem> changedCartList) deleteProduct;
   final List<CartItem> cartList;
-  
+  final int index;
+
   // 상세페이지 생성자
   DescriptionPage({
     required this.title,
     required this.productData,
-    required this.onToggleFavorite,
     required this.addProductInCart,
     required this.cartList,
     required this.resetProductSelected,
     required this.deleteProduct,
+    required this.index,
   });
 
   @override
@@ -78,7 +78,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
             IconButton(
               onPressed: () {
                 showDescriptionDialog(context, "장바구니에 추가하시겠습니까?", () {
-                  addCart();
+                  Cart.addCart(widget.index);
                   Navigator.popUntil(context, (route) => route.isFirst);
                 });
               },
@@ -89,14 +89,14 @@ class _DescriptionPageState extends State<DescriptionPage> {
               child: FilledButton(
                 onPressed: () {
                   showDescriptionDialog(context, "해당 상품을 구매하시겠습니까?", () {
-                    isSelected = true;
-                    addCart();
+                    Cart.onToggleFavorite(widget.index);
+                    Cart.addCart(widget.index);
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (route) => CartPage(
                           title: widget.title,
-                          cartList: widget.cartList,
                           resetProductSelected: widget.resetProductSelected,
                           deleteProduct: widget.deleteProduct,
                         ),
@@ -185,10 +185,11 @@ class _DescriptionPageState extends State<DescriptionPage> {
                           IconButton(
                             onPressed: () {
                               setState(() {
-                                widget.onToggleFavorite();
+                                Product.onToggleFavorite(index: widget.index);
                               });
+                              print(widget.index);
                             },
-                            icon: widget.productData.favorite
+                            icon: Product.list[widget.index].favorite
                                 ? const Icon(
                                     Icons.favorite,
                                     color: Colors.red,

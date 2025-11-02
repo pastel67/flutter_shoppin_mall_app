@@ -9,13 +9,12 @@ import 'package:intl/intl.dart';
 
 class CartPage extends StatefulWidget {
   final String title;
-  final List<CartItem> cartList;
+  final List<CartItem> cartList =Cart.list;
   final void Function(List<CartItem> changedCartList) resetProductSelected;
   final void Function(List<CartItem> changedCartList) deleteProduct;
 
   CartPage({
     required this.title,
-    required this.cartList,
     required this.resetProductSelected,
     required this.deleteProduct,
   });

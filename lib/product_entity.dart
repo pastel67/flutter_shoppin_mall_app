@@ -15,3 +15,15 @@ class ProductEntity {
     this.typingSoundLink,
   });
 }
+
+class Product {
+  static List<ProductEntity> list = [];
+
+  static void onToggleFavorite({
+    required int index,
+  }) {
+    list[index].favorite = !list[index].favorite;
+    
+    print('$index 토글 눌림 => ${list[index].favorite}');
+  }
+}
