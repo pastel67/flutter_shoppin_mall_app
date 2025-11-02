@@ -117,6 +117,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
     );
   }
 
+
   Widget productData(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
