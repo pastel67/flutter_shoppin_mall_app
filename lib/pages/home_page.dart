@@ -16,7 +16,6 @@ class ShoppingHomePage extends StatefulWidget {
 
 class _ShoppingHomePageState extends State<ShoppingHomePage> {
   final String title = 'TaDak#'; //타닥샵 #이 상점의 샵을 뜻하면서 키캡의 네모난 모양과 비슷해서 #으로 씀
-  List<CartItem> cartList = [];
   int pageNumber = 1;
 
   Widget onTogglePage(int pageNumber) {
