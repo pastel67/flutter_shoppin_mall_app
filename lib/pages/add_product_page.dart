@@ -1,15 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductPage extends StatefulWidget {
-  AddProductPage({required this.title, required this.newProduct});
+  AddProductPage({required this.title, required this.onSetState});
 
+  VoidCallback onSetState;
   final String title;
-  final void Function(String image, String name, int prise, String descriptiuon)
-  newProduct;
 
   @override
   State<AddProductPage> createState() => _AddProductPageState();
@@ -232,12 +231,15 @@ class _AddProductPageState extends State<AddProductPage> {
             ),
             onPressed: isIncluded()
                 ? () {
-                    widget.newProduct(
-                      productImage!.path,
-                      productNameController.text,
-                      productPrice,
-                      descriptionController.text,
+                    Product.list.add(
+                      ProductEntity(
+                        image: productImage!.path,
+                        name: productNameController.text,
+                        description: descriptionController.text,
+                        price: productPrice,
+                      ),
                     );
+                    widget.onSetState();
                     Navigator.popUntil(context, (route) => route.isFirst);
                   }
                 : null,

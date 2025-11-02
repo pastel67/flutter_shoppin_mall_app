@@ -1,21 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 
 class PaymentPage extends StatefulWidget {
   final String title;
   final int totalPrice;
   final List<CartItem> selectedItems;
   final List<CartItem> cartList;
-  final void Function(List<CartItem> changedCartList) deleteProduct;
 
   PaymentPage({
     required this.title,
     required this.totalPrice,
     required this.selectedItems,
     required this.cartList,
-    required this.deleteProduct,
   });
 
   @override
@@ -116,7 +115,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               ),
                             ),
                             Text(
-                              '${cartItem.finalPrice()}원',
+                              '${PriceFormatter(cartItem.finalPrice()).priceFormat()}원',
                               style: TextStyle(fontFamily: 'text'),
                             ),
                           ],
@@ -149,7 +148,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           Spacer(),
                           Text(
-                            '${widget.totalPrice}원',
+                            '${PriceFormatter(widget.totalPrice).priceFormat()}원',
                             style: TextStyle(fontSize: 15, fontFamily: 'text'),
                           ),
                         ],
@@ -205,11 +204,8 @@ class _PaymentPageState extends State<PaymentPage> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            widget.cartList.removeWhere(
-                              (item) => item.isSelected,
-                            );
-                            widget.deleteProduct(widget.cartList);
-                            Navigator.of(context).pop(); 
+                            Cart.list.removeWhere((item) => item.isSelected);
+                            Navigator.of(context).pop();
                             Navigator.popUntil(
                               context,
                               (route) => route.isFirst,
@@ -237,7 +233,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ),
               child: Text(
-                '${widget.totalPrice}원 결제하기',
+                '${PriceFormatter(widget.totalPrice).priceFormat()}원 결제하기',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

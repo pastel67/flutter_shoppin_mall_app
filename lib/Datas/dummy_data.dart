@@ -1,14 +1,10 @@
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
-import 'package:flutter_shoppin_mall_app/product_entity.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/product_entity.dart';
 
 class DummyData {
-  List<ProductEntity> productList;
-  List<CartItem> cartList;
-
-  DummyData({required this.productList, required this.cartList});
-
-  void addDummyData() {
-    productList.add(
+  
+  void addList() {
+    Product.list.add(
       ProductEntity(
         image: 'assets/tochepeu.webp',
         name: '토체프101 에그축',
@@ -18,7 +14,7 @@ class DummyData {
         favorite: false,
       ),
     );
-    productList.add(
+    Product.list.add(
       ProductEntity(
         image: 'assets/logitech120.webp',
         name: '로지텍 k120',
@@ -28,7 +24,7 @@ class DummyData {
         favorite: false,
       ),
     );
-    productList.add(
+    Product.list.add(
       ProductEntity(
         image: 'assets/logitech.webp',
         name: '로지텍 무선키보드',
@@ -38,7 +34,7 @@ class DummyData {
         favorite: true,
       ),
     );
-    productList.add(
+    Product.list.add(
       ProductEntity(
         image: 'assets/abko.webp',
         name: '앱코 게이밍 키보드',
@@ -48,7 +44,7 @@ class DummyData {
             '밤에 게임해도 밝은 LED키보드! 엄마한테 걸릴 수 있으니 주의!\n게이밍키보드여도 게임실력이 늘진않죠. \n반품해달라고 애원해도 반품 안돼요.',
       ),
     );
-    productList.add(
+    Product.list.add(
       ProductEntity(
         image: 'assets/ollibia.webp',
         name: '올리비아 저소음',
@@ -58,7 +54,7 @@ class DummyData {
         favorite: true,
       ),
     );
-    productList.add(
+    Product.list.add(
       ProductEntity(
         image: 'assets/keychron.webp',
         name: '키크론 기계식키보드',
@@ -68,9 +64,9 @@ class DummyData {
       ),
     );
 
-    for (int i = 0; i < productList.length; i++) {
+    for (int i = 0; i < Product.list.length; i++) {
       if (i % 2 == 0) {
-        cartList.add(CartItem(product: productList[i]));
+        Cart.list.add(CartItem(product: Product.list[i]));
       }
     }
   }

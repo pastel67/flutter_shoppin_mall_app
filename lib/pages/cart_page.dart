@@ -1,30 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_shoppin_mall_app/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/Datas/cart_item.dart';
+import 'package:flutter_shoppin_mall_app/numberFromatter.dart';
 import 'package:flutter_shoppin_mall_app/pages/payment_page.dart';
 
 //도와줘요 준호맨~ 살려줘요 준호맨~
 
 class CartPage extends StatefulWidget {
   final String title;
-  final List<CartItem> cartList;
-  final void Function(List<CartItem> changedCartList) resetProductSelected;
-  final void Function(List<CartItem> changedCartList) deleteProduct;
+  final List<CartItem> cartList = Cart.list;
 
-  CartPage({
-    required this.title,
-    required this.cartList,
-    required this.resetProductSelected,
-    required this.deleteProduct,
-  });
+  CartPage({required this.title});
 
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-  int totalPrice = 0;
-
   int calculatTotalPrice() {
     int changedPrice = 0;
     List<CartItem> finalPriceList = widget.cartList
@@ -51,7 +43,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        widget.resetProductSelected(widget.cartList);
+        Cart.resetProductSelected();
         print('페이지 나가기');
       },
       child: Scaffold(
@@ -114,7 +106,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                   Spacer(),
                   Text(
-                    '${calculatTotalPrice()}원',
+                    '${PriceFormatter(calculatTotalPrice()).priceFormat()}원',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -136,7 +128,6 @@ class _CartPageState extends State<CartPage> {
                           MaterialPageRoute(
                             builder: (contaxt) => PaymentPage(
                               cartList: widget.cartList,
-                              deleteProduct: widget.deleteProduct,
                               title: widget.title,
                               totalPrice: calculatTotalPrice(),
                               selectedItems: selectedItems,
@@ -170,6 +161,7 @@ class _CartPageState extends State<CartPage> {
   // 카트 리스트
   ListView cartList() {
     final double bottomHeight = 120;
+
     return ListView.builder(
       padding: EdgeInsets.only(
         bottom: bottomHeight + MediaQuery.of(context).padding.bottom,
@@ -271,7 +263,7 @@ class _CartPageState extends State<CartPage> {
                         child: TextButton(
                           onPressed: () {
                             setState(() {
-                              widget.cartList.removeAt(reversedIndex);
+                              Cart.deleteProduct(reversedIndex);
                             });
                           },
                           child: Text(
@@ -287,7 +279,7 @@ class _CartPageState extends State<CartPage> {
 
                       SizedBox(height: 20),
                       Text(
-                        '가격 ${cartItem.finalPrice()}원',
+                        '가격 ${PriceFormatter(cartItem.finalPrice()).priceFormat()}원',
                         style: TextStyle(fontSize: 12, fontFamily: 'text'),
                       ),
                       SizedBox(height: 10),
